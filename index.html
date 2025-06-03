@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Universe Flashcard Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;400&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <meta name="theme-color" content="#090c1a">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Universe SVG background -->
+  <div class="universe-bg" aria-hidden="true">
+    <svg width="100%" height="100%" id="universeSVG">
+      <circle class="planet" cx="10%" cy="80%" r="70"></circle>
+      <circle class="planet2" cx="85%" cy="20%" r="50"></circle>
+      <g id="stars"></g>
+      <g id="comets"></g>
+    </svg>
+  </div>
+  <div class="main-bg">
+    <div class="profile-bar" id="profileBar"></div>
+    <div class="quiz-card" id="quizCard">
+      <div class="card-inner" id="cardInner">
+        <!-- Front Side -->
+        <div class="card-face card-front">
+          <header class="quiz-header">
+            <span class="app-logo"><i class="fa-solid fa-bolt"></i></span>
+            <h1>Flashcard Quiz</h1>
+            <span class="app-logo"><i class="fa-solid fa-brain"></i></span>
+          </header>
+          <div class="level-row">
+            <span class="level-badge" id="levelBadge">Easy</span>
+          </div>
+          <div class="timer-row">
+            <div class="timer-bar-bg">
+              <div class="timer-bar" id="timerBar"></div>
+            </div>
+            <span class="timer-text" id="timerText">15</span>
+          </div>
+          <div class="question-row">
+            <span class="question-icon"><i class="fa-solid fa-circle-question"></i></span>
+            <span class="question-text" id="questionText"></span>
+          </div>
+          <div class="options-row" id="optionsRow"></div>
+          <div class="answer-section">
+            <button class="action-btn show" id="showBtn"><i class="fa-solid fa-eye"></i> Show Explanation</button>
+            <button class="action-btn flip" id="flipBtn"><i class="fa-solid fa-retweet"></i> Flip</button>
+          </div>
+          <div class="nav-section">
+            <button class="nav-btn prev" id="prevBtn"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+            <span class="card-status" id="cardStatus"></span>
+            <button class="nav-btn next" id="nextBtn"><i class="fa-solid fa-chevron-right"></i> Next</button>
+          </div>
+          <div class="feedback" id="feedback"></div>
+          <footer>
+            <span>Made by <a href="#">MRINALPRAKASHFSD</a> <i class="fa-solid fa-graduation-cap"></i></span>
+          </footer>
+        </div>
+        <!-- Back Side -->
+        <div class="card-face card-back">
+          <header class="quiz-header">
+            <span class="app-logo"><i class="fa-solid fa-bolt"></i></span>
+            <h1>Flashcard Quiz</h1>
+            <span class="app-logo"><i class="fa-solid fa-brain"></i></span>
+          </header>
+          <div class="back-content">
+            <div class="back-title">Correct Answer:</div>
+            <div class="back-answer" id="backAnswer"></div>
+            <div class="back-explanation" id="backExplanation"></div>
+            <button class="action-btn flip" id="flipBackBtn"><i class="fa-solid fa-retweet"></i> Flip Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-feedback" id="fullscreenFeedback"></div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="profileModal" class="profile-modal-bg">
+    <div class="profile-modal">
+      <h2>Welcome! Tell us about you</h2>
+      <form id="profileForm">
+        <label>
+          Name:
+          <input type="text" id="userName" required autocomplete="off" maxlength="32" />
+        </label>
+        <label>
+          Date of Birth:
+          <input type="date" id="userDob" required />
+        </label>
+        <label>
+          Hobbies:
+          <input type="text" id="userHobbies" placeholder="e.g. Reading, Cricket, Coding" maxlength="64"/>
+        </label>
+        <button type="submit">Start Quiz</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sound effects -->
+  <audio id="sound-correct" src="sound-correct.mp3" preload="auto"></audio>
+  <audio id="sound-wrong" src="sound-wrong.mp3" preload="auto"></audio>
+  <audio id="sound-timeup" src="sound-timeup.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(function(reg) { /* success */ })
+          .catch(function(err) { /* fail */ });
+      });
+    }
+  </script>
+</body>
+</html>
