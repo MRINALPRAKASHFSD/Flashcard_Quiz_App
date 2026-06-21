@@ -485,8 +485,13 @@ function renderProfileBar() {
       <span style="margin-left:12px;"><i class="fa-solid fa-cake-candles"></i> ${profile.dob}</span>
       <span style="margin-left:12px;"><i class="fa-solid fa-heart"></i> ${profile.hobbies}</span>
     </div>
-    <div class="profile-score" id="scoreDisplay">
-      Score: ${score}
+    <div style="display:flex; gap:10px; align-items:center;">
+      <button class="leaderboard-btn" onclick="showLeaderboard()" title="View Leaderboard">
+        <i class="fa-solid fa-trophy"></i>
+      </button>
+      <div class="profile-score" id="scoreDisplay">
+        Score: ${score}
+      </div>
     </div>
   `;
 }
@@ -655,13 +660,17 @@ nextBtn.onclick = () => {
     current++;
     renderCard("right");
   } else if (current === questions.length - 1) {
+    saveScore(profile.name, score);
     fullscreenFeedback.innerHTML = `
       <div class="feedback-content">
         Quiz Complete!<br/>
         <span style="font-size:2rem;">Your Score: ${score}</span>
         <div style="margin-top:16px;font-size:1.05rem;">Profile:<br>
         <b>${profile.name}</b> | DOB: ${profile.dob} | Hobbies: ${profile.hobbies}</div>
-        <br/><button onclick="window.location.reload()" style="margin-top:18px;font-size:1.1rem;padding:10px 30px;border-radius:10px;background:#6bc4fa;color:#fff;border:none;">Restart</button>
+        <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;">
+          <button onclick="showLeaderboard()" style="font-size:1.1rem;padding:10px 20px;border-radius:10px;background:#f59e42;color:#fff;border:none;cursor:pointer;">Leaderboard</button>
+          <button onclick="window.location.reload()" style="font-size:1.1rem;padding:10px 30px;border-radius:10px;background:#6bc4fa;color:#fff;border:none;cursor:pointer;">Restart</button>
+        </div>
       </div>
     `;
     fullscreenFeedback.classList.add("active");
@@ -688,6 +697,40 @@ function playSound(which) {
 
 prevBtn.addEventListener("keydown", e => { if (e.key === "Enter") prevBtn.click(); });
 nextBtn.addEventListener("keydown", e => { if (e.key === "Enter") nextBtn.click(); });
+
+// Leaderboard Logic
+const leaderboardModal = document.getElementById("leaderboardModal");
+const leaderboardList = document.getElementById("leaderboardList");
+
+function getLeaderboard() {
+  const data = localStorage.getItem("quizLeaderboard");
+  return data ? JSON.parse(data) : [];
+}
+
+function saveScore(name, finalScore) {
+  const leaderboard = getLeaderboard();
+  leaderboard.push({ name: name || "Anonymous", score: finalScore, date: new Date().toLocaleDateString() });
+  leaderboard.sort((a, b) => b.score - a.score);
+  localStorage.setItem("quizLeaderboard", JSON.stringify(leaderboard.slice(0, 10)));
+}
+
+function showLeaderboard() {
+  const leaderboard = getLeaderboard();
+  leaderboardList.innerHTML = leaderboard.length === 0 
+    ? "<p style='text-align:center;'>No scores yet!</p>" 
+    : leaderboard.map((item, i) => `
+        <li class="leaderboard-item">
+          <span class="rank">#${i + 1}</span>
+          <span class="name">${item.name}</span>
+          <span class="score">${item.score} pts</span>
+        </li>
+      `).join("");
+  leaderboardModal.classList.add("active");
+}
+
+function hideLeaderboard() {
+  leaderboardModal.classList.remove("active");
+}
 
 // Start with profile modal
 window.onload = () => {
