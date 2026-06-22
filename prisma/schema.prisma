@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  engineType      = "library"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Question {
+  id            Int      @id @default(autoincrement())
+  question      String
+  options       String   // JSON stringified array of options
+  correctAnswer String
+  explanation   String
+  level         String
+  createdAt     DateTime @default(now())
+}
+
+model LeaderboardEntry {
+  id        Int      @id @default(autoincrement())
+  name      String
+  score     Int
+  createdAt DateTime @default(now())
+}
