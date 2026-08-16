@@ -5,11 +5,17 @@ import "./globals.css";
 const nunito = Nunito({
   variable: "--font-nunito",
   subsets: ["latin"],
+  weight: ["400", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
-  title: "Universe Flashcard Quiz",
-  description: "A Next.js full-stack flashcard quiz app",
+  title: "The KRMU Fresher Quiz by eOzka",
+  description: "Official interactive orientation quiz presenter powered by eOzka",
+  icons: {
+    icon: "/eozka-monogram.svg",
+    shortcut: "/eozka-monogram.svg",
+    apple: "/eozka-monogram.svg",
+  },
 };
 
 export default function RootLayout({
@@ -18,23 +24,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${nunito.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${nunito.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans relative">
-        {/* Universe SVG background */}
-        <div className="universe-bg" aria-hidden="true">
-          <svg width="100%" height="100%" id="universeSVG">
-            <circle className="planet" cx="10%" cy="80%" r="70"></circle>
-            <circle className="planet2" cx="85%" cy="20%" r="50"></circle>
-            <g id="stars"></g>
-            <g id="comets"></g>
-          </svg>
+        <div className="bg-canvas" aria-hidden="true">
+          <div className="starfield" />
+          <div className="bg-orb bg-orb-1" />
+          <div className="bg-orb bg-orb-2" />
+          <div className="bg-orb bg-orb-3" />
         </div>
-        <div className="main-bg">
-          {children}
-        </div>
+        <div className="relative z-10 flex-1">{children}</div>
       </body>
     </html>
   );
