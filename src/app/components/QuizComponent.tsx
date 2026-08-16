@@ -1,271 +1,366 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import confetti from "canvas-confetti";
-import { submitScore } from "../actions";
+import Confetti from "canvas-confetti";
+import { Volume2, VolumeX, Eye, ArrowRight, Zap, Trophy, Flame } from "lucide-react";
 
-type Question = {
-  id: number;
-  question: string;
-  options: string[];
-  correctAnswer: string;
-  explanation: string;
-  level: string;
-};
+import { type Question } from "@/data/questions";
+import { soundManager } from "@/app/utils/soundEffects";
 
-export default function QuizComponent({ questions, onComplete }: { questions: Question[], onComplete: () => void }) {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+const SHAPE_MAP: Record<number, string> = { 0: "▲", 1: "◆", 2: "●", 3: "■" };
+const COLOR_MAP: Record<number, string> = { 0: "red", 1: "blue", 2: "yellow", 3: "green" };
+const OPTION_KEYS = ["A", "B", "C", "D"];
+const TIMER_SECONDS = 15;
+const STREAK_BONUS = 100;
+
+interface Props {
+  questions: Question[];
+  mode: "presentation" | "quiz";
+  timerEnabled: boolean;
+  onComplete?: (results: {
+    score: number;
+    correctCount: number;
+    maxStreak: number;
+    avgTime: number;
+  }) => void;
+}
+
+export default function QuizComponent({ questions, mode, timerEnabled, onComplete }: Props) {
+  const [current, setCurrent] = useState(0);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [revealed, setRevealed] = useState(false);
+  const [clueStep, setClueStep] = useState(1);
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(15);
-  const [isQuizActive, setIsQuizActive] = useState(false);
-  const [isFinished, setIsFinished] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [showExplanation, setShowExplanation] = useState(false);
-  const [playerName, setPlayerName] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [maxStreak, setMaxStreak] = useState(0);
+  const [timer, setTimer] = useState(TIMER_SECONDS);
+  const [times, setTimes] = useState<number[]>([]);
+  const [isMuted, setIsMuted] = useState(false);
 
-  const currentQuestion = questions[currentQuestionIndex];
+  const q = questions[current];
+  const isLast = current === questions.length - 1;
+  const answerKey = OPTION_KEYS[q.correctAnswer] as "A" | "B" | "C" | "D";
+  const hasClues = Boolean(q.clues && q.clues.length > 0);
 
   useEffect(() => {
-    if (isQuizActive && !showExplanation && timeLeft > 0) {
-      const timerId = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timerId);
-    } else if (timeLeft === 0 && !showExplanation) {
-      handleAnswerTimeout();
-    }
-  }, [timeLeft, isQuizActive, showExplanation]);
-
-  const handleStart = () => {
-    setIsQuizActive(true);
-    setTimeLeft(15);
+    setCurrent(0);
+    setSelected(null);
+    setRevealed(false);
+    setClueStep(1);
     setScore(0);
-    setCurrentQuestionIndex(0);
-    setIsFinished(false);
-  };
+    setCorrectCount(0);
+    setStreak(0);
+    setMaxStreak(0);
+    setTimer(TIMER_SECONDS);
+    setTimes([]);
+  }, [questions]);
 
-  const handleAnswerTimeout = () => {
-    setShowExplanation(true);
-    setTimeout(() => {
-      nextQuestion();
-    }, 4000);
-  };
+  useEffect(() => {
+    if (mode !== "quiz" || !timerEnabled || revealed) return;
+    const id = setInterval(() => {
+      setTimer((t) => {
+        if (t <= 1) {
+          clearInterval(id);
+          soundManager.playWrong();
+          setRevealed(true);
+          return 0;
+        }
+        if (t <= 5) soundManager.playTick();
+        return t - 1;
+      });
+    }, 1000);
+    return () => clearInterval(id);
+  }, [mode, timerEnabled, revealed, current]);
 
-  const handleAnswerClick = (option: string) => {
-    if (showExplanation) return;
-    
-    setSelectedAnswer(option);
-    setShowExplanation(true);
-    
-    if (option === currentQuestion.correctAnswer) {
-      setScore((prev) => prev + 10);
+  const handleNextClue = useCallback(() => {
+    if (!hasClues || !q.clues) return;
+    if (clueStep < q.clues.length) {
+      setClueStep((prev) => prev + 1);
+      soundManager.playClueReveal();
     }
+  }, [hasClues, q.clues, clueStep]);
 
-    setTimeout(() => {
-      nextQuestion();
-    }, 4000);
+  const handleSelect = useCallback(
+    (key: string) => {
+      if (selected || revealed) return;
+      setSelected(key);
+      setRevealed(true);
+
+      if (mode === "quiz") {
+        const timeTaken = TIMER_SECONDS - timer;
+        setTimes((p) => [...p, timeTaken]);
+      }
+
+      if (key === answerKey) {
+        soundManager.playCorrect();
+        setCorrectCount((p) => p + 1);
+        setStreak((s) => {
+          const nextS = s + 1;
+          setMaxStreak((m) => Math.max(m, nextS));
+          return nextS;
+        });
+
+        if (mode === "quiz") {
+          const timeMultiplier = timer / TIMER_SECONDS;
+          const basePoints = q.points || 10;
+          const earnedScore = Math.round(basePoints * 10 * timeMultiplier) + Math.min(streak + 1, 5) * STREAK_BONUS;
+          setScore((p) => p + earnedScore);
+        }
+
+        Confetti({
+          particleCount: 70,
+          spread: 60,
+          origin: { y: 0.65 },
+          colors: ["#10b981", "#3b82f6", "#f59e0b", "#d4b23c"],
+        });
+      } else {
+        soundManager.playWrong();
+        setStreak(0);
+      }
+    },
+    [selected, revealed, mode, timer, answerKey, streak, q.points]
+  );
+
+  const handleReveal = () => {
+    soundManager.playClick();
+    setRevealed(true);
   };
 
-  const nextQuestion = () => {
-    setSelectedAnswer(null);
-    setShowExplanation(false);
-    if (currentQuestionIndex + 1 < questions.length) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setTimeLeft(15);
+  const handleNext = useCallback(() => {
+    soundManager.playClick();
+    if (isLast) {
+      const avg = times.length > 0 ? times.reduce((a, b) => a + b, 0) / times.length : 0;
+      onComplete?.({ score, correctCount, maxStreak, avgTime: parseFloat(avg.toFixed(1)) });
     } else {
-      setIsQuizActive(false);
-      setIsFinished(true);
-      triggerConfetti();
+      setCurrent((c) => c + 1);
+      setSelected(null);
+      setRevealed(false);
+      setClueStep(1);
+      setTimer(TIMER_SECONDS);
     }
+  }, [isLast, times, score, correctCount, maxStreak, onComplete]);
+
+  const toggleMute = () => {
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+    soundManager.setMuted(nextMuted);
   };
 
-  const triggerConfetti = () => {
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981']
-    });
-  };
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
-  const handleSubmitScore = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!playerName.trim() || isSubmitting) return;
-    
-    setIsSubmitting(true);
-    await submitScore(playerName, score);
-    setIsSubmitting(false);
-    onComplete(); // Notify parent to refresh leaderboard
-  };
+      const key = e.key.toUpperCase();
+      if (!revealed && !selected) {
+        if (key === "1" || key === "A") handleSelect("A");
+        if (key === "2" || key === "B") handleSelect("B");
+        if (key === "3" || key === "C") handleSelect("C");
+        if (key === "4" || key === "D") handleSelect("D");
+      }
 
-  if (!isQuizActive && !isFinished) {
-    return (
-      <div className="flex flex-col items-center justify-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 w-full max-w-2xl text-center">
-        <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-6 drop-shadow-sm">
-          Frontend Quiz
-        </h2>
-        <p className="text-gray-300 text-lg mb-8 max-w-md">
-          50 questions. 15 seconds each. Don't blink.
-        </p>
-        <button 
-          onClick={handleStart}
-          className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold rounded-2xl shadow-lg transform transition-all hover:scale-105 active:scale-95"
-        >
-          Start
-        </button>
-      </div>
-    );
-  }
+      if (e.code === "Space") {
+        e.preventDefault();
+        if (revealed) handleNext();
+        else if (!selected) handleReveal();
+      }
 
-  if (isFinished) {
-    return (
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="flex flex-col items-center justify-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 w-full max-w-2xl text-center"
-      >
-        <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600 mb-4 drop-shadow-sm">
-          Done.
-        </h2>
-        <p className="text-2xl text-white mb-2">
-          Score: <span className="font-bold text-yellow-400">{score}</span>
-        </p>
-        <p className="text-gray-400 mb-8">
-          Out of {questions.length * 10} possible points.
-        </p>
-        
-        <form onSubmit={handleSubmitScore} className="w-full max-w-sm flex flex-col gap-4">
-          <input 
-            type="text" 
-            placeholder="Enter your name" 
-            value={playerName}
-            onChange={(e) => setPlayerName(e.target.value)}
-            required
-            maxLength={20}
-            className="px-4 py-3 bg-black/40 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-          />
-          <button 
-            type="submit"
-            disabled={isSubmitting || !playerName.trim()}
-            className="px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold rounded-xl shadow-lg transform transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-          >
-            {isSubmitting ? "Saving..." : "Save score"}
-          </button>
-        </form>
-        
-        <button 
-          onClick={handleStart}
-          className="mt-6 text-sm text-gray-400 hover:text-white underline decoration-gray-500 transition-colors"
-        >
-          Try again
-        </button>
-      </motion.div>
-    );
-  }
+      if (key === "M") toggleMute();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [revealed, selected, handleSelect, handleNext]);
 
   return (
-    <div className="w-full max-w-3xl">
-      <div className="flex justify-between items-center mb-6 px-4">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Question</span>
-          <span className="text-xl font-bold text-white bg-white/10 px-3 py-1 rounded-lg backdrop-blur-sm">
-            {currentQuestionIndex + 1} / {questions.length}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Score</span>
-          <span className="text-xl font-bold text-yellow-400 bg-white/10 px-3 py-1 rounded-lg backdrop-blur-sm">
-            {score}
-          </span>
-        </div>
-      </div>
-
-      <div className="relative w-full h-2 bg-gray-800 rounded-full mb-8 overflow-hidden">
-        <motion.div 
-          className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-purple-500"
-          initial={{ width: "100%" }}
-          animate={{ width: `${(timeLeft / 15) * 100}%` }}
-          transition={{ duration: 1, ease: "linear" }}
-        />
-      </div>
-
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentQuestion.id}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.3 }}
-          className="bg-white/10 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20"
-        >
-          <div className="flex justify-between items-start mb-6 gap-4">
-            <h3 className="text-2xl font-bold text-white leading-relaxed">
-              {currentQuestion.question}
-            </h3>
-            <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide border
-              ${currentQuestion.level === 'Hard' ? 'bg-red-500/20 text-red-300 border-red-500/30' : 
-                currentQuestion.level === 'Medium' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' : 
-                'bg-green-500/20 text-green-300 border-green-500/30'}`}
-            >
-              {currentQuestion.level}
+    <div className="w-full max-w-5xl space-y-6">
+      {/* Quiz Top Control Bar */}
+      <div className="surface p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <div className="flex flex-col">
+            <span className="text-xs uppercase tracking-wider text-[var(--text-muted)] font-black">Question</span>
+            <span className="text-2xl font-black text-white">
+              {current + 1} <span className="text-sm font-bold text-[var(--text-muted)]">/ {questions.length}</span>
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {currentQuestion.options.map((option, idx) => {
-              const isSelected = selectedAnswer === option;
-              const isCorrect = option === currentQuestion.correctAnswer;
-              
-              let buttonStyle = "bg-white/5 border-white/10 text-gray-200 hover:bg-white/10 hover:border-white/30";
-              
-              if (showExplanation) {
-                if (isCorrect) {
-                  buttonStyle = "bg-green-500/30 border-green-500/50 text-green-100 shadow-[0_0_15px_rgba(34,197,94,0.3)]";
-                } else if (isSelected && !isCorrect) {
-                  buttonStyle = "bg-red-500/30 border-red-500/50 text-red-100";
-                } else {
-                  buttonStyle = "bg-black/20 border-white/5 text-gray-500 opacity-50";
-                }
-              } else if (isSelected) {
-                buttonStyle = "bg-blue-500/30 border-blue-500/50 text-white";
-              }
+          <div className="h-8 w-[1px] bg-white/10 hidden sm:block" />
 
-              return (
-                <button
-                  key={idx}
-                  onClick={() => handleAnswerClick(option)}
-                  disabled={showExplanation}
-                  className={`relative p-5 rounded-2xl border transition-all duration-300 text-left font-medium text-lg overflow-hidden group ${buttonStyle}`}
-                >
-                  <span className="relative z-10">{option}</span>
-                </button>
-              );
-            })}
+          <div className="hidden sm:flex items-center gap-2">
+            <span className="badge badge-all">{q.level}</span>
+            <span className="badge badge-quiz">+{q.points || 10} pts</span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-5">
+          {mode === "quiz" && (
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1.5 text-amber-400 font-black text-xl">
+                <Trophy className="w-5 h-5" />
+                <span>{score.toLocaleString()}</span>
+              </div>
+              {streak > 1 && (
+                <div className="flex items-center gap-1 text-orange-400 font-black text-sm bg-orange-500/10 px-3 py-1 rounded-xl border border-orange-500/20">
+                  <Flame className="w-4 h-4 text-orange-500 animate-bounce" />
+                  <span>{streak}x Streak</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          <button
+            onClick={toggleMute}
+            className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+            title={isMuted ? "Unmute Sound" : "Mute Sound"}
+          >
+            {isMuted ? <VolumeX className="w-5 h-5 text-rose-400" /> : <Volume2 className="w-5 h-5 text-emerald-400" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Segmented Progress Dots */}
+      <div className="progress-bar px-1">
+        {questions.map((_, i) => (
+          <div key={i} className={`progress-dot ${i < current ? "done" : ""} ${i === current ? "current" : ""}`} />
+        ))}
+      </div>
+
+      {/* Timer Line Bar */}
+      {timerEnabled && mode === "quiz" && (
+        <div className="timer-track">
+          <div
+            className={`timer-fill ${timer > 10 ? "safe" : timer > 5 ? "warn" : "danger"}`}
+            style={{ width: `${(timer / TIMER_SECONDS) * 100}%` }}
+          />
+        </div>
+      )}
+
+      {/* Question Card */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current}
+          initial={{ opacity: 0, y: 15, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -15, scale: 0.98 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          className="surface p-6 sm:p-10 space-y-6"
+        >
+          <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-black uppercase tracking-wider">
+            <span>{q.category}</span>
+            <span className="sm:hidden">{q.level}</span>
           </div>
 
-          <AnimatePresence>
-            {showExplanation && (
-              <motion.div 
-                initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                animate={{ opacity: 1, height: "auto", marginTop: 24 }}
-                exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                className="overflow-hidden"
-              >
-                <div className={`p-5 rounded-2xl border ${selectedAnswer === currentQuestion.correctAnswer ? 'bg-green-500/10 border-green-500/20' : 'bg-blue-500/10 border-blue-500/20'}`}>
-                  <p className="text-sm font-semibold uppercase tracking-wider mb-2 text-gray-400">
-                    {selectedAnswer === currentQuestion.correctAnswer ? 
-                      <span className="text-green-400">Correct!</span> : 
-                      <span className="text-blue-400">Explanation</span>
-                    }
-                  </p>
-                  <p className="text-gray-200 leading-relaxed">
-                    {currentQuestion.explanation}
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <h2 className="text-2xl sm:text-3xl font-black leading-snug text-white tracking-tight">
+            {q.question}
+          </h2>
+
+          {/* Sequential Clues display for Buzzer Round */}
+          {hasClues && q.clues && (
+            <div className="space-y-3 pt-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-black uppercase tracking-wider text-[var(--eozka-gold)] flex items-center gap-1.5">
+                  <Zap className="w-4 h-4" /> Progressive Clues ({clueStep} / {q.clues.length})
+                </span>
+                {clueStep < q.clues.length && (
+                  <button
+                    onClick={handleNextClue}
+                    className="text-xs font-black text-amber-300 hover:text-amber-200 flex items-center gap-1 underline underline-offset-4 cursor-pointer"
+                  >
+                    Reveal Next Clue +
+                  </button>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {q.clues.slice(0, clueStep).map((clue, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="clue-card"
+                  >
+                    <span className="clue-badge">Clue {idx + 1}</span>
+                    <span className="text-sm font-bold text-white/90">{clue}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
         </motion.div>
+      </AnimatePresence>
+
+      {/* Answer Options Grid */}
+      <div className="answer-grid">
+        {q.options.map((text, i) => {
+          const key = OPTION_KEYS[i] as "A" | "B" | "C" | "D";
+          let stateClass = "";
+          if (revealed) {
+            if (key === answerKey) stateClass = "correct";
+            else if (key === selected) stateClass = "wrong";
+            else stateClass = "dimmed";
+          } else if (key === selected) {
+            stateClass = "selected";
+          }
+
+          return (
+            <motion.button
+              key={`${current}-${key}`}
+              whileHover={!revealed ? { scale: 1.01 } : {}}
+              whileTap={!revealed ? { scale: 0.98 } : {}}
+              onClick={() => handleSelect(key)}
+              disabled={revealed}
+              className={`answer-btn ${stateClass}`}
+              data-color={COLOR_MAP[i]}
+            >
+              <span className="shape">{SHAPE_MAP[i]}</span>
+              <span className="label">{text}</span>
+              <span className="key-badge">{key}</span>
+            </motion.button>
+          );
+        })}
+      </div>
+
+      {/* Presenter Action Controls */}
+      {!selected && !revealed && (
+        <div className="flex justify-center pt-2">
+          <button onClick={handleReveal} className="btn btn-secondary btn-lg flex items-center gap-2">
+            <Eye className="w-5 h-5" /> Reveal Answer (Press Space)
+          </button>
+        </div>
+      )}
+
+      {/* Explanation Box */}
+      <AnimatePresence>
+        {revealed && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className={`explanation ${selected && selected !== answerKey ? "wrong" : ""}`}
+          >
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <p className="text-base sm:text-lg leading-relaxed text-white/90 font-medium">
+                {selected === answerKey ? (
+                  <>
+                    <span className="text-[var(--success)] font-black">Correct Answer! 🎉</span>{" "}
+                    {q.explanation}
+                  </>
+                ) : (
+                  <>
+                    <span className="text-[var(--error)] font-black">Correct Answer: {q.options[q.correctAnswer]}.</span>{" "}
+                    {q.explanation}
+                  </>
+                )}
+              </p>
+            </div>
+
+            <button onClick={handleNext} className="btn btn-gold btn-lg w-full flex items-center justify-center gap-2">
+              <span>{isLast ? "Finish Quiz & View Leaderboard" : "Next Question"}</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );
