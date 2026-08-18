@@ -176,34 +176,34 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
   return (
     <div className="w-full max-w-5xl space-y-6">
       {/* Quiz Top Control Bar */}
-      <div className="surface p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
+      <div className="surface p-3.5 sm:p-5 flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-3 sm:gap-4">
           <div className="flex flex-col">
-            <span className="text-xs uppercase tracking-wider text-[var(--text-muted)] font-black">Question</span>
-            <span className="text-2xl font-black text-white">
-              {current + 1} <span className="text-sm font-bold text-[var(--text-muted)]">/ {questions.length}</span>
+            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-[var(--text-muted)] font-black">Question</span>
+            <span className="text-xl sm:text-2xl font-black text-white">
+              {current + 1} <span className="text-xs sm:text-sm font-bold text-[var(--text-muted)]">/ {questions.length}</span>
             </span>
           </div>
 
-          <div className="h-8 w-[1px] bg-white/10 hidden sm:block" />
+          <div className="h-7 sm:h-8 w-[1px] bg-white/10" />
 
-          <div className="hidden sm:flex items-center gap-2">
-            <span className="badge badge-all">{q.level}</span>
-            <span className="badge badge-quiz">+{q.points || 10} pts</span>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="badge badge-all text-[10px] sm:text-xs">{q.level}</span>
+            <span className="badge badge-quiz text-[10px] sm:text-xs">+{q.points || 10} pts</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-3 sm:gap-5">
           {mode === "quiz" && (
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1.5 text-amber-400 font-black text-xl">
-                <Trophy className="w-5 h-5" />
+            <div className="flex items-center gap-2 sm:gap-4">
+              <div className="flex items-center gap-1 text-amber-400 font-black text-base sm:text-xl">
+                <Trophy className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span>{score.toLocaleString()}</span>
               </div>
               {streak > 1 && (
-                <div className="flex items-center gap-1 text-orange-400 font-black text-sm bg-orange-500/10 px-3 py-1 rounded-xl border border-orange-500/20">
-                  <Flame className="w-4 h-4 text-orange-500 animate-bounce" />
-                  <span>{streak}x Streak</span>
+                <div className="flex items-center gap-1 text-orange-400 font-black text-xs sm:text-sm bg-orange-500/10 px-2.5 py-1 rounded-xl border border-orange-500/20">
+                  <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500 animate-bounce" />
+                  <span>{streak}x</span>
                 </div>
               )}
             </div>
@@ -211,10 +211,10 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
 
           <button
             onClick={toggleMute}
-            className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+            className="p-2 sm:p-2.5 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
             title={isMuted ? "Unmute Sound" : "Mute Sound"}
           >
-            {isMuted ? <VolumeX className="w-5 h-5 text-rose-400" /> : <Volume2 className="w-5 h-5 text-emerald-400" />}
+            {isMuted ? <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-rose-400" /> : <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />}
           </button>
         </div>
       </div>
@@ -244,14 +244,14 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -15, scale: 0.98 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="surface p-6 sm:p-10 space-y-6"
+          className="surface p-5 sm:p-10 space-y-4 sm:space-y-6"
         >
-          <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-black uppercase tracking-wider">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs text-[var(--text-secondary)] font-black uppercase tracking-wider">
             <span>{q.category}</span>
-            <span className="sm:hidden">{q.level}</span>
+            <span>{q.level}</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-black leading-snug text-white tracking-tight">
+          <h2 className="text-xl sm:text-3xl font-black leading-snug text-white tracking-tight">
             {q.question}
           </h2>
 
