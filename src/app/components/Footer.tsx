@@ -18,7 +18,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-[#0c0c0c] text-[#f0eeea] border-t border-[#2a2a2a] relative z-[20] mt-auto">
-      <div className="w-full px-8 sm:px-16 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1.4fr] gap-10 lg:gap-14 items-start">
+      <div className="w-full px-5 sm:px-12 lg:px-16 py-8 sm:py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1.4fr] gap-8 sm:gap-10 lg:gap-14 items-start">
         {/* Brand Column */}
         <div className="space-y-4">
           <a

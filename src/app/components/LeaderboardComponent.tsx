@@ -62,76 +62,76 @@ export default function LeaderboardComponent({ entries, onClear }: Props) {
       ) : (
         <div className="space-y-8">
           {/* Top 3 Podium Cards */}
-          <div className="grid grid-cols-3 gap-3 items-end pt-6 pb-2 max-w-lg mx-auto text-center">
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-3 items-end pt-6 pb-2 max-w-lg mx-auto text-center">
             {/* 2nd Place */}
             {top2 ? (
-              <div className="flex flex-col items-center space-y-2">
+              <div className="flex flex-col items-center space-y-1.5 sm:space-y-2">
                 <div className="relative">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-800 border-4 border-slate-400 flex items-center justify-center text-slate-200 text-xl font-black shadow-lg">
+                  <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-slate-800 border-2 sm:border-4 border-slate-400 flex items-center justify-center text-slate-200 text-lg sm:text-xl font-black shadow-lg">
                     {top2.name.charAt(0).toUpperCase()}
                   </div>
-                  <span className="absolute -bottom-2 -right-1 w-6 h-6 rounded-full bg-slate-400 text-slate-950 font-black text-xs flex items-center justify-center border-2 border-slate-900">
+                  <span className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-400 text-slate-950 font-black text-[10px] sm:text-xs flex items-center justify-center border-2 border-slate-900">
                     2
                   </span>
                 </div>
                 <div>
-                  <div className="font-extrabold text-white text-sm truncate max-w-[90px]">{top2.name}</div>
-                  <div className="text-xs font-black text-indigo-400">{top2.score} pts</div>
+                  <div className="font-extrabold text-white text-xs sm:text-sm truncate max-w-[75px] sm:max-w-[90px]">{top2.name}</div>
+                  <div className="text-[11px] sm:text-xs font-black text-indigo-400">{top2.score} pts</div>
                 </div>
               </div>
             ) : (
               <div className="opacity-30 flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full bg-white/5 border-2 border-dashed border-white/20" />
-                <span className="text-xs font-bold mt-1 text-[var(--text-muted)]">2nd Place</span>
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/5 border-2 border-dashed border-white/20" />
+                <span className="text-[10px] sm:text-xs font-bold mt-1 text-[var(--text-muted)]">2nd Place</span>
               </div>
             )}
 
             {/* 1st Place (Crown Winner) */}
             {top1 ? (
-              <div className="flex flex-col items-center space-y-2 -translate-y-3">
+              <div className="flex flex-col items-center space-y-1.5 sm:space-y-2 -translate-y-2 sm:-translate-y-3">
                 <div className="relative">
-                  <Crown className="w-8 h-8 text-amber-400 absolute -top-7 left-1/2 -translate-x-1/2 animate-bounce" />
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-amber-600 border-4 border-amber-200 flex items-center justify-center text-amber-950 text-2xl font-black shadow-xl shadow-amber-500/20">
+                  <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-amber-400 absolute -top-5 sm:-top-7 left-1/2 -translate-x-1/2 animate-bounce" />
+                  <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-amber-600 border-2 sm:border-4 border-amber-200 flex items-center justify-center text-amber-950 text-xl sm:text-2xl font-black shadow-xl shadow-amber-500/20">
                     {top1.name.charAt(0).toUpperCase()}
                   </div>
-                  <span className="absolute -bottom-2 -right-1 w-7 h-7 rounded-full bg-amber-400 text-amber-950 font-black text-sm flex items-center justify-center border-2 border-slate-900 shadow-md">
+                  <span className="absolute -bottom-1 -right-1 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-amber-400 text-amber-950 font-black text-xs sm:text-sm flex items-center justify-center border-2 border-slate-900 shadow-md">
                     1
                   </span>
                 </div>
                 <div>
-                  <div className="font-black text-white text-base truncate max-w-[110px]">{top1.name}</div>
-                  <div className="text-sm font-black text-amber-400 flex items-center justify-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5" /> {top1.score} pts
+                  <div className="font-black text-white text-xs sm:text-base truncate max-w-[85px] sm:max-w-[110px]">{top1.name}</div>
+                  <div className="text-xs sm:text-sm font-black text-amber-400 flex items-center justify-center gap-1">
+                    <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> {top1.score} pts
                   </div>
                 </div>
               </div>
             ) : (
               <div className="opacity-30 flex flex-col items-center">
-                <div className="w-20 h-20 rounded-full bg-white/5 border-2 border-dashed border-white/20" />
-                <span className="text-xs font-bold mt-1 text-[var(--text-muted)]">1st Place</span>
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/5 border-2 border-dashed border-white/20" />
+                <span className="text-[10px] sm:text-xs font-bold mt-1 text-[var(--text-muted)]">1st Place</span>
               </div>
             )}
 
             {/* 3rd Place */}
             {top3 ? (
-              <div className="flex flex-col items-center space-y-2">
+              <div className="flex flex-col items-center space-y-1.5 sm:space-y-2">
                 <div className="relative">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-amber-950 border-4 border-amber-700 flex items-center justify-center text-amber-200 text-xl font-black shadow-lg">
+                  <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-amber-950 border-2 sm:border-4 border-amber-700 flex items-center justify-center text-amber-200 text-lg sm:text-xl font-black shadow-lg">
                     {top3.name.charAt(0).toUpperCase()}
                   </div>
-                  <span className="absolute -bottom-2 -right-1 w-6 h-6 rounded-full bg-amber-700 text-white font-black text-xs flex items-center justify-center border-2 border-slate-900">
+                  <span className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-700 text-white font-black text-[10px] sm:text-xs flex items-center justify-center border-2 border-slate-900">
                     3
                   </span>
                 </div>
                 <div>
-                  <div className="font-extrabold text-white text-sm truncate max-w-[90px]">{top3.name}</div>
-                  <div className="text-xs font-black text-amber-500">{top3.score} pts</div>
+                  <div className="font-extrabold text-white text-xs sm:text-sm truncate max-w-[75px] sm:max-w-[90px]">{top3.name}</div>
+                  <div className="text-[11px] sm:text-xs font-black text-amber-500">{top3.score} pts</div>
                 </div>
               </div>
             ) : (
               <div className="opacity-30 flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full bg-white/5 border-2 border-dashed border-white/20" />
-                <span className="text-xs font-bold mt-1 text-[var(--text-muted)]">3rd Place</span>
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/5 border-2 border-dashed border-white/20" />
+                <span className="text-[10px] sm:text-xs font-bold mt-1 text-[var(--text-muted)]">3rd Place</span>
               </div>
             )}
           </div>
