@@ -3,8 +3,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Confetti from "canvas-confetti";
 import QuizComponent from "./QuizComponent";
-import LeaderboardComponent from "./LeaderboardComponent";
+// Leaderboard is currently disabled
+// import LeaderboardComponent from "./LeaderboardComponent";
 import Footer from "./Footer";
 import { questions, getQuestionsByCategory, categories, roundDescriptions } from "@/data/questions";
 import { soundManager } from "@/app/utils/soundEffects";
@@ -26,6 +28,7 @@ import {
   Trophy,
   ArrowRight,
   Lock,
+  AlertTriangle,
 } from "lucide-react";
 
 const CORRECT_PIN = process.env.NEXT_PUBLIC_QUIZ_PIN || "";
@@ -149,6 +152,13 @@ export default function AppClient() {
     (results: { score: number; correctCount: number; maxStreak: number; avgTime: number }) => {
       setQuizResults({ ...results, category: lobbyConfig.category });
       setPhase("results");
+      soundManager.playVictory();
+      Confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.5 },
+        colors: ["#d4b23c", "#10b981", "#3b82f6", "#f59e0b"],
+      });
     },
     [lobbyConfig.category]
   );
@@ -248,8 +258,8 @@ export default function AppClient() {
                       autoComplete="off"
                     />
                     {pinError && (
-                      <p className="mt-2 text-[#ff4d4d] text-xs font-extrabold text-center flex items-center justify-center gap-1 bg-red-500/10 border border-red-500/20 py-2 rounded-lg">
-                        ⚠️ Incorrect PIN. Please try again.
+                      <p className="mt-2 text-[#ff4d4d] text-xs font-extrabold text-center flex items-center justify-center gap-1.5 bg-red-500/10 border border-red-500/20 py-2 rounded-lg">
+                        <AlertTriangle className="w-4 h-4 text-rose-400" /> Incorrect PIN. Please try again.
                       </p>
                     )}
                   </div>
@@ -312,15 +322,17 @@ export default function AppClient() {
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-black uppercase tracking-wider">
                     <Sparkles className="w-3.5 h-3.5" /> KRMU Orientation
                   </div>
-                  <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">Ready for a Quiz? 🚀</h1>
+                  <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white flex items-center gap-2">
+                    Ready for a Quiz? <Sparkles className="w-7 h-7 text-amber-400" />
+                  </h1>
                   <p className="text-white/70 text-sm sm:text-base font-medium">
-                    Test knowledge, reveal clues step-by-step, and compete on the leaderboard!
+                    Test knowledge, reveal clues step-by-step, and engage your audience!
                   </p>
                 </div>
 
                 <div className="flex items-center gap-3 z-10">
                   <div className="px-5 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-center">
-                    <div className="text-2xl font-black text-amber-300">32</div>
+                    <div className="text-2xl font-black text-amber-300">{questions.length}</div>
                     <div className="text-[11px] font-extrabold uppercase tracking-wider text-white/70">Questions</div>
                   </div>
                   <div className="px-5 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-center">
@@ -571,7 +583,9 @@ export default function AppClient() {
                   <p className="text-xs font-black uppercase tracking-widest text-[var(--text-secondary)] mb-1">
                     Session Complete
                   </p>
-                  <h2 className="text-3xl font-black text-white">Great Job! 🎉</h2>
+                  <h2 className="text-3xl font-black text-white flex items-center justify-center gap-2">
+                    Great Job! <Sparkles className="w-7 h-7 text-amber-400 animate-pulse" />
+                  </h2>
                 </div>
 
                 {lobbyConfig.mode === "quiz" && quizResults && (
@@ -613,6 +627,7 @@ export default function AppClient() {
                 )}
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
+                  {/* Leaderboard currently disabled
                   {lobbyConfig.mode === "quiz" &&
                     lobbyConfig.playerName.trim() &&
                     quizResults &&
@@ -621,6 +636,7 @@ export default function AppClient() {
                         Save Score to Leaderboard
                       </button>
                     )}
+                  */}
 
                   <button onClick={handlePlayAgain} className="btn btn-secondary btn-lg w-full sm:w-auto flex items-center justify-center gap-2">
                     <RotateCcw className="w-5 h-5" /> Start New Session
@@ -628,8 +644,8 @@ export default function AppClient() {
                 </div>
               </div>
 
-              {/* Leaderboard Table */}
-              <LeaderboardComponent entries={leaderboard} onClear={handleClearLeaderboard} />
+              {/* Leaderboard Table (Disabled) */}
+              {/* <LeaderboardComponent entries={leaderboard} onClear={handleClearLeaderboard} /> */}
             </motion.div>
           </div>
         </div>

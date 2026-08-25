@@ -8,6 +8,7 @@ export type Question = {
   explanation: string;
   clues?: string[]; // For Buzzer round progressive reveals
   points: number;
+  isOpinion?: boolean;
 };
 
 export const roundDescriptions: Record<string, { title: string; subtitle: string; scoreRule: string }> = {
@@ -45,8 +46,8 @@ export const questions: Question[] = [
     level: "Round 1 — General Trivia",
     category: "General Trivia",
     question: "Which app's logo is a white paper airplane on a blue background?",
-    options: ["Telegram", "WhatsApp", "Twitter / X", "Signal"],
-    correctAnswer: 0,
+    options: ["WhatsApp", "Telegram", "Twitter / X", "Signal"],
+    correctAnswer: 1,
     explanation: "Telegram's iconic logo features a sleek white paper plane inside a bright blue circle.",
     points: 10
   },
@@ -75,8 +76,8 @@ export const questions: Question[] = [
     level: "Round 1 — General Trivia",
     category: "General Trivia",
     question: "Which Indian city is nicknamed the 'Silicon Valley of India'?",
-    options: ["Bengaluru", "Hyderabad", "Pune", "Gurugram"],
-    correctAnswer: 0,
+    options: ["Hyderabad", "Pune", "Gurugram", "Bengaluru"],
+    correctAnswer: 3,
     explanation: "Bengaluru (Bangalore) earned this nickname as India's leading IT exporter and technology innovation hub.",
     points: 15
   },
@@ -95,8 +96,8 @@ export const questions: Question[] = [
     level: "Round 1 — General Trivia",
     category: "General Trivia",
     question: "Every slide of this quiz has one word on it somewhere — what's the name of today's orientation program?",
-    options: ["Deeksharambh", "Aarambh", "Nav-Tarang", "Freshers Hub"],
-    correctAnswer: 0,
+    options: ["Aarambh", "Nav-Tarang", "Deeksharambh", "Freshers Hub"],
+    correctAnswer: 2,
     explanation: "'Deeksharambh' is the official student induction and orientation program designed to welcome freshers to KRMU!",
     points: 15
   },
@@ -115,10 +116,90 @@ export const questions: Question[] = [
     level: "Round 1 — General Trivia",
     category: "General Trivia",
     question: "Which country is credited with sending the world's first emoji out into the wild, back in 1999?",
-    options: ["Japan", "South Korea", "United States", "Sweden"],
-    correctAnswer: 0,
+    options: ["South Korea", "Japan", "United States", "Sweden"],
+    correctAnswer: 1,
     explanation: "Shigetaka Kurita created the first set of 176 emojis in 1999 for Japanese mobile operator NTT DoCoMo.",
     points: 20
+  },
+  {
+    id: 33,
+    level: "Round 1 — General Trivia",
+    category: "General Trivia",
+    question: "Which programming language was created by Brendan Eich in just 10 days in 1995?",
+    options: ["Python", "Java", "JavaScript", "C++"],
+    correctAnswer: 2,
+    explanation: "Brendan Eich created Netscape's LiveScript (later renamed JavaScript) in May 1995 in just 10 days!",
+    points: 15
+  },
+  {
+    id: 34,
+    level: "Round 1 — General Trivia",
+    category: "General Trivia",
+    question: "What does 'HTTP' stand for in web address URLs?",
+    options: ["HyperText Transfer Protocol", "High Transfer Text Program", "Hyperlink Text Technical Process", "Host Terminal Transfer Protocol"],
+    correctAnswer: 0,
+    explanation: "HTTP stands for HyperText Transfer Protocol, the foundational protocol used to transfer web pages across the internet.",
+    points: 10
+  },
+  {
+    id: 35,
+    level: "Round 1 — General Trivia",
+    category: "General Trivia",
+    question: "Which revolutionary AI chatbot released in late 2022 became the fastest consumer app to reach 100M users?",
+    options: ["Claude", "ChatGPT", "Gemini", "Copilot"],
+    correctAnswer: 1,
+    explanation: "OpenAI's ChatGPT launched in November 2022 and reached 100 million active users in just two months!",
+    points: 15
+  },
+  {
+    id: 36,
+    level: "Round 1 — General Trivia",
+    category: "General Trivia",
+    question: "What is the name of GitHub's famous cat-octopus mascot?",
+    options: ["Gitty", "Bugsy", "Octocat", "Squidward"],
+    correctAnswer: 2,
+    explanation: "Monalisa the Octocat is GitHub's iconic mascot, featuring an octopus head with a cat face!",
+    points: 15
+  },
+  {
+    id: 37,
+    level: "Round 1 — General Trivia",
+    category: "General Trivia",
+    question: "Which operating system mascot is a penguin named 'Tux'?",
+    options: ["Ubuntu", "Fedora", "Debian", "Linux"],
+    correctAnswer: 3,
+    explanation: "Tux the penguin was created by Larry Ewing in 1996 as the official brand mascot of the Linux kernel.",
+    points: 15
+  },
+  {
+    id: 38,
+    level: "Round 1 — General Trivia",
+    category: "General Trivia",
+    question: "Which tech giant acquired GitHub for $7.5 Billion in 2018?",
+    options: ["Microsoft", "Google", "Meta", "Amazon"],
+    correctAnswer: 0,
+    explanation: "Microsoft acquired GitHub in June 2018 to support open-source software development and cloud workflows.",
+    points: 15
+  },
+  {
+    id: 39,
+    level: "Round 1 — General Trivia",
+    category: "General Trivia",
+    question: "What does 'CPU' stand for in computer hardware?",
+    options: ["Central Processing Unit", "Computer Power Utility", "Core Performance Unit", "Control Program User"],
+    correctAnswer: 0,
+    explanation: "The CPU (Central Processing Unit) is the core processor often called the 'brain' of the computer.",
+    points: 10
+  },
+  {
+    id: 40,
+    level: "Round 1 — General Trivia",
+    category: "General Trivia",
+    question: "Which social media platform uses a ghost mascot named 'Ghostface Chillah'?",
+    options: ["Discord", "Snapchat", "Telegram", "Reddit"],
+    correctAnswer: 1,
+    explanation: "Snapchat's famous white ghost mascot on a yellow background is named Ghostface Chillah!",
+    points: 10
   },
 
   /* ───────────── ROUND 2: RAPID FIRE ───────────── */
@@ -127,7 +208,7 @@ export const questions: Question[] = [
     level: "Round 2 — Rapid Fire",
     category: "Rapid Fire",
     question: "Either/Or: Instagram or Snapchat — which app launched first?",
-    options: ["Instagram (2010)", "Snapchat (2011)"],
+    options: ["Instagram", "Snapchat"],
     correctAnswer: 0,
     explanation: "Instagram launched in October 2010, whereas Snapchat launched nearly a year later in July 2011.",
     points: 10
@@ -137,8 +218,8 @@ export const questions: Question[] = [
     level: "Round 2 — Rapid Fire",
     category: "Rapid Fire",
     question: "What's the name of the tech company that started as an online bookstore and is now named after a rainforest?",
-    options: ["Amazon", "Flipkart", "eBay", "Rakuten"],
-    correctAnswer: 0,
+    options: ["Flipkart", "eBay", "Amazon", "Rakuten"],
+    correctAnswer: 2,
     explanation: "Jeff Bezos founded Amazon in 1994 as an online marketplace for books before expanding into e-commerce, cloud, and tech.",
     points: 10
   },
@@ -157,8 +238,8 @@ export const questions: Question[] = [
     level: "Round 2 — Rapid Fire",
     category: "Rapid Fire",
     question: "What is the capital city of Japan?",
-    options: ["Tokyo", "Kyoto", "Osaka", "Yokohama"],
-    correctAnswer: 0,
+    options: ["Kyoto", "Osaka", "Tokyo", "Yokohama"],
+    correctAnswer: 2,
     explanation: "Tokyo has been the capital city and seat of government of Japan since 1868.",
     points: 10
   },
@@ -167,8 +248,8 @@ export const questions: Question[] = [
     level: "Round 2 — Rapid Fire",
     category: "Rapid Fire",
     question: "Identify: Which global tech brand's logo features a bitten apple?",
-    options: ["Apple", "Blackberry", "Android", "Windows"],
-    correctAnswer: 0,
+    options: ["Blackberry", "Android", "Windows", "Apple"],
+    correctAnswer: 3,
     explanation: "Rob Janoff designed Apple's famous bitten apple logo in 1977 so it wouldn't be mistaken for a cherry.",
     points: 10
   },
@@ -187,8 +268,8 @@ export const questions: Question[] = [
     level: "Round 2 — Rapid Fire",
     category: "Rapid Fire",
     question: "In what year did India gain independence from British rule?",
-    options: ["1947", "1950", "1942", "1952"],
-    correctAnswer: 0,
+    options: ["1950", "1947", "1942", "1952"],
+    correctAnswer: 1,
     explanation: "India achieved independence at midnight on August 15, 1947.",
     points: 10
   },
@@ -208,15 +289,15 @@ export const questions: Question[] = [
     id: 17,
     level: "Round 3 — Buzzer Round",
     category: "Buzzer Round",
-    question: "Identify this iconic Character based on progressive clues:",
+    question: "Identify this iconic Superhero based on progressive clues:",
     clues: [
-      "Bitten in a lab accident, not born with his powers",
-      "Balances being a student with a secret double life",
-      "Known for his witty one-liners while fighting crime",
-      "Wears a red and blue suit and swings on webs between buildings"
+      "Bitten by a spider during a school trip — not born with alien powers",
+      "Balances being a high school student with a secret crime-fighting life",
+      "His motto is: 'With great power comes great responsibility'",
+      "Wears a red and blue suit and swings on webs between New York skyscrapers"
     ],
-    options: ["Spider-Man", "Iron Man", "Batman", "Deadpool"],
-    correctAnswer: 0,
+    options: ["Iron Man", "Batman", "Spider-Man", "Deadpool"],
+    correctAnswer: 2,
     explanation: "Peter Parker gained superhero abilities after being bitten by a radioactive spider in a lab accident.",
     points: 15
   },
@@ -226,13 +307,13 @@ export const questions: Question[] = [
     category: "Buzzer Round",
     question: "Identify this global Brand based on progressive clues:",
     clues: [
-      "Named after a Greek goddess of victory",
-      "Its logo is a simple curved 'swoosh'",
-      "Its most famous slogan is 'Just Do It'",
-      "Makes Air Jordans and world-famous athletic sneakers"
+      "Its iconic single-line logo is a simple 'Swoosh'",
+      "Named after the ancient Greek goddess of victory",
+      "Famous worldwide for Air Jordans and its slogan 'Just Do It'",
+      "The world's leading sports footwear and athletic brand"
     ],
-    options: ["Nike", "Adidas", "Puma", "Reebok"],
-    correctAnswer: 0,
+    options: ["Adidas", "Puma", "Reebok", "Nike"],
+    correctAnswer: 3,
     explanation: "Nike was named after the Greek goddess of victory, and Carolyn Davidson created its iconic swoosh logo in 1971.",
     points: 15
   },
@@ -242,10 +323,10 @@ export const questions: Question[] = [
     category: "Buzzer Round",
     question: "Identify this blockbuster Movie based on progressive clues:",
     clues: [
-      "Set on a distant, lush alien moon named Pandora",
-      "Features a blue-skinned native species called the Na'vi",
-      "Directed by James Cameron",
-      "Became the highest-grossing film of all time ($2.9B+)"
+      "Set on a distant alien moon named Pandora filled with bioluminescent forests",
+      "Humans connect their minds to tall, blue-skinned native bodies called Na'vi",
+      "Directed by James Cameron, it became the highest-grossing film of all time ($2.9B+)",
+      "The 3D sci-fi epic featuring Jake Sully and Neytiri"
     ],
     options: ["Avatar", "Star Wars", "Guardians of the Galaxy", "Interstellar"],
     correctAnswer: 0,
@@ -258,13 +339,13 @@ export const questions: Question[] = [
     category: "Buzzer Round",
     question: "Identify this tech Company / Platform based on progressive clues:",
     clues: [
-      "Once famous for a strict 140-character tweet limit",
-      "Its iconic blue bird logo is now gone",
-      "Rebranded to a single stylized letter in 2023",
-      "Owned by Elon Musk"
+      "Pioneered hashtags (#), trending topics, and viral retweets",
+      "Famous for its original strict 140-character text limit per post",
+      "Elon Musk bought this social platform for $44 Billion",
+      "Rebranded from the iconic blue bird logo to the letter 'X' in 2023"
     ],
-    options: ["Twitter (now X)", "Threads", "Reddit", "Facebook"],
-    correctAnswer: 0,
+    options: ["Threads", "Twitter (now X)", "Reddit", "Facebook"],
+    correctAnswer: 1,
     explanation: "Twitter rebranded to 'X' in July 2023 under Elon Musk, replacing the classic blue bird logo.",
     points: 15
   },
@@ -274,13 +355,13 @@ export const questions: Question[] = [
     category: "Buzzer Round",
     question: "Identify this global Event based on progressive clues:",
     clues: [
-      "Held once every four years featuring global athletes",
-      "Uses a legendary torch relay to open the games",
-      "Athletes compete for gold, silver, and bronze medals",
-      "Paris hosted the most recent 2024 edition"
+      "Held once every 4 years with top athletes competing for Gold, Silver, and Bronze",
+      "Opens with a legendary sacred torch relay across the host country",
+      "Its official emblem features 5 interlocking colorful rings",
+      "Paris hosted the recent 2024 edition of this global sports spectacle"
     ],
-    options: ["The Olympics", "FIFA World Cup", "Commonwealth Games", "Asian Games"],
-    correctAnswer: 0,
+    options: ["FIFA World Cup", "Commonwealth Games", "The Olympics", "Asian Games"],
+    correctAnswer: 2,
     explanation: "The Olympic Games gather top athletes worldwide every four years, with Paris hosting the 2024 Summer Olympics.",
     points: 15
   },
@@ -290,13 +371,13 @@ export const questions: Question[] = [
     category: "Buzzer Round",
     question: "Identify this tech Legend based on progressive clues:",
     clues: [
-      "Co-founded a tech empire in a family garage",
-      "Famous for wearing a signature black turtleneck",
-      "Was ousted from his own company, then returned to save it",
-      "Introduced the world to the Macintosh & iPhone"
+      "Traveled across India in the 1970s seeking spiritual enlightenment before launching a tech empire",
+      "Co-founded Apple in a family garage and was famous for wearing a black turtleneck",
+      "Was ousted from his own company, then returned to save it with the iMac & iPod",
+      "Unveiled the very first revolutionary iPhone on stage in 2007"
     ],
-    options: ["Steve Jobs", "Bill Gates", "Elon Musk", "Mark Zuckerberg"],
-    correctAnswer: 0,
+    options: ["Bill Gates", "Elon Musk", "Mark Zuckerberg", "Steve Jobs"],
+    correctAnswer: 3,
     explanation: "Steve Jobs co-founded Apple in 1976, revolutionizing personal computers, digital music, and smartphones.",
     points: 15
   },
@@ -323,12 +404,12 @@ export const questions: Question[] = [
     category: "Connect the Dots",
     question: "Titanic → Avatar → Avengers: Endgame → Star Wars: The Force Awakens → ?",
     options: [
-      "All ranked among the Highest-Grossing Films of All Time",
       "All won Oscar Best Picture awards",
+      "All ranked among the Highest-Grossing Films of All Time",
       "All were directed by James Cameron",
       "All were filmed in New Zealand"
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
     explanation: "Every film listed has grossed over $2 Billion worldwide, occupying top positions on the all-time box office chart.",
     points: 20
   },
@@ -338,12 +419,12 @@ export const questions: Question[] = [
     category: "Connect the Dots",
     question: "Bengaluru → Hyderabad → Pune → Gurugram → ?",
     options: [
-      "All major IT & Tech Hub Cities in India",
       "Capital Cities of Indian States",
       "Major Coastal Port Cities of India",
+      "All major IT & Tech Hub Cities in India",
       "Union Territories of India"
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation: "These 4 Indian cities form the primary backbone of India's technology, software exports, and tech startup ecosystem.",
     points: 20
   },
@@ -353,12 +434,12 @@ export const questions: Question[] = [
     category: "Connect the Dots",
     question: "Elon Musk → Jeff Bezos → Richard Branson → ?",
     options: [
-      "Billionaires who built their own private space companies",
       "Owners of social media platforms",
       "Founders of EV automobile companies",
-      "Pioneers of AI search engines"
+      "Pioneers of AI search engines",
+      "Billionaires who built their own private space companies"
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
     explanation: "Musk (SpaceX), Bezos (Blue Origin), and Branson (Virgin Galactic) are all billionaires funding private space exploration.",
     points: 20
   },
@@ -376,6 +457,7 @@ export const questions: Question[] = [
       "What is a meme?"
     ],
     correctAnswer: 0,
+    isOpinion: true,
     explanation: "No wrong answers — full marks for honesty! Memes evolve faster than college schedules.",
     points: 15
   },
@@ -385,13 +467,13 @@ export const questions: Question[] = [
     category: "Audience Round",
     question: "Closest guess wins: roughly how many new students got admitted to KRMU this year?",
     options: [
-      "~2,500+ Freshers",
       "~1,000 Students",
-      "~5,000 Students",
+      "~4,500+ Freshers",
+      "~2,000 Students",
       "~500 Students"
     ],
-    correctAnswer: 0,
-    explanation: "KRMU welcomed over 2,500+ bright new freshers across various undergraduate and postgraduate programs!",
+    correctAnswer: 1,
+    explanation: "KRMU welcomed over 4,500+ bright new freshers across various undergraduate and postgraduate programs!",
     points: 15
   },
   {
@@ -400,12 +482,12 @@ export const questions: Question[] = [
     category: "Audience Round",
     question: "Guess it: how many hours a day do you think the average college student spends on their phone?",
     options: [
-      "6–8 hours a day",
       "1–2 hours a day",
       "3–4 hours a day",
+      "6–8 hours a day",
       "10+ hours a day"
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation: "Studies show college students spend roughly 6 to 8 hours daily on smartphones for learning and entertainment!",
     points: 15
   },
@@ -413,45 +495,45 @@ export const questions: Question[] = [
     id: 30,
     level: "Round 5 — Audience Round",
     category: "Audience Round",
-    question: "Pick a side: Instagram Reels or YouTube Shorts — raise your hand for whichever you scroll more!",
+    question: "Which social media platform introduced short-form video 'Reels' in 2020?",
     options: [
-      "Instagram Reels",
-      "YouTube Shorts",
-      "Both equally",
-      "Neither"
+      "TikTok",
+      "Instagram",
+      "YouTube",
+      "Snapchat"
     ],
-    correctAnswer: 0,
-    explanation: "No single right answer — just bragging rights! Both platforms dominate short-form entertainment.",
+    correctAnswer: 1,
+    explanation: "Instagram launched Reels in August 2020 to allow users to create and discover short, entertaining videos.",
     points: 15
   },
   {
     id: 31,
     level: "Round 5 — Audience Round",
     category: "Audience Round",
-    question: "Estimate it: how many cups of chai do you think the KRMU canteen serves in a single day?",
+    question: "Which traditional beverage is celebrated as the ultimate daily energizer across Indian college campuses?",
     options: [
-      "1,500+ cups of chai",
-      "200 cups of chai",
-      "500 cups of chai",
-      "5,000 cups of chai"
+      "Filter Coffee",
+      "Lassi",
+      "Nimbu Pani",
+      "Masala Chai"
     ],
-    correctAnswer: 0,
-    explanation: "Chai is the ultimate fuel for college lectures, campus hangouts, and study sessions at KRMU!",
+    correctAnswer: 3,
+    explanation: "Masala Chai is the ultimate staple energizer across Indian college canteens and campus hangouts!",
     points: 15
   },
   {
     id: 32,
     level: "Round 5 — Audience Round",
     category: "Audience Round",
-    question: "Turn to the person next to you. In 15 seconds, find one thing you both have in common. GO!",
+    question: "What is considered the most effective way to make the most of your fresher year during orientation?",
     options: [
-      "Found something in common!",
-      "Still searching...",
-      "Made a new friend!",
-      "Shy to ask!"
+      "Networking & Club Participation",
+      "Attending lectures only",
+      "Staying in your dorm room",
+      "Skipping orientation events"
     ],
     correctAnswer: 0,
-    explanation: "If you're still talking when the timer stops — congratulations, you just made your first new friend at KRMU!",
+    explanation: "Active networking and joining campus clubs is the best way to thrive and build lifelong connections during college!",
     points: 15
   }
 ];
