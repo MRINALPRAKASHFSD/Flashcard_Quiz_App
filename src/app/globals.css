@@ -290,6 +290,13 @@ body, html {
 }
 
 /* ─── Kahoot-Style Option Buttons ─── */
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
 @media (max-width: 640px) {
   .answer-grid {
     grid-template-columns: 1fr;

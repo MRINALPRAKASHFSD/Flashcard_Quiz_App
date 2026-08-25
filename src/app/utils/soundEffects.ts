@@ -156,6 +156,63 @@ class SoundManager {
       // Audio play error handled
     }
   }
+
+  public playVictory() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      // 1. Victory Fanfare Arpeggio: C5 -> E5 -> G5 -> C6 -> E6
+      const fanfare = [523.25, 659.25, 783.99, 1046.5, 1318.51];
+      fanfare.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.1);
+
+        gain.gain.setValueAtTime(0.2, ctx.currentTime + idx * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.1 + 0.4);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(ctx.currentTime + idx * 0.1);
+        osc.stop(ctx.currentTime + idx * 0.1 + 0.4);
+      });
+
+      // 2. Synthesized Clapping / Applause Bursts (rhythmic noise bursts)
+      const clapTimes = [0.15, 0.25, 0.35, 0.42, 0.5, 0.58, 0.65, 0.72, 0.8, 0.88, 0.95];
+      clapTimes.forEach((delay) => {
+        const bufferSize = Math.floor(ctx.sampleRate * 0.04);
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = "bandpass";
+        filter.frequency.value = 1200 + Math.random() * 400;
+
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.08 + Math.random() * 0.05, ctx.currentTime + delay);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.04);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        noise.start(ctx.currentTime + delay);
+      });
+    } catch {
+      // Audio play error handled
+    }
+  }
 }
 
 export const soundManager = new SoundManager();

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Confetti from "canvas-confetti";
-import { Volume2, VolumeX, Eye, ArrowRight, Zap, Trophy, Flame } from "lucide-react";
+import { Volume2, VolumeX, Eye, ArrowRight, ArrowLeft, Zap, Trophy, Flame, Sparkles, AlertTriangle } from "lucide-react";
 
 import { type Question } from "@/data/questions";
 import { soundManager } from "@/app/utils/soundEffects";
@@ -39,6 +39,11 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
   const [times, setTimes] = useState<number[]>([]);
   const [isMuted, setIsMuted] = useState(false);
 
+  // History tracking to allow seamless Previous / Next navigation
+  const [answersState, setAnswersState] = useState<
+    Record<number, { selected: string | null; revealed: boolean; clueStep: number }>
+  >({});
+
   const q = questions[current];
   const isLast = current === questions.length - 1;
   const answerKey = OPTION_KEYS[q.correctAnswer] as "A" | "B" | "C" | "D";
@@ -55,6 +60,7 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
     setMaxStreak(0);
     setTimer(TIMER_SECONDS);
     setTimes([]);
+    setAnswersState({});
   }, [questions]);
 
   useEffect(() => {
@@ -65,6 +71,10 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
           clearInterval(id);
           soundManager.playWrong();
           setRevealed(true);
+          setAnswersState((prev) => ({
+            ...prev,
+            [current]: { selected: null, revealed: true, clueStep }
+          }));
           return 0;
         }
         if (t <= 5) soundManager.playTick();
@@ -72,15 +82,20 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
       });
     }, 1000);
     return () => clearInterval(id);
-  }, [mode, timerEnabled, revealed, current]);
+  }, [mode, timerEnabled, revealed, current, clueStep]);
 
   const handleNextClue = useCallback(() => {
     if (!hasClues || !q.clues) return;
     if (clueStep < q.clues.length) {
-      setClueStep((prev) => prev + 1);
+      const nextStep = clueStep + 1;
+      setClueStep(nextStep);
       soundManager.playClueReveal();
+      setAnswersState((prev) => ({
+        ...prev,
+        [current]: { selected, revealed, clueStep: nextStep }
+      }));
     }
-  }, [hasClues, q.clues, clueStep]);
+  }, [hasClues, q.clues, clueStep, current, selected, revealed]);
 
   const handleSelect = useCallback(
     (key: string) => {
@@ -88,12 +103,14 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
       setSelected(key);
       setRevealed(true);
 
+      const isCorrect = key === answerKey || Boolean(q.isOpinion);
+
       if (mode === "quiz") {
         const timeTaken = TIMER_SECONDS - timer;
         setTimes((p) => [...p, timeTaken]);
       }
 
-      if (key === answerKey) {
+      if (isCorrect) {
         soundManager.playCorrect();
         setCorrectCount((p) => p + 1);
         setStreak((s) => {
@@ -119,14 +136,34 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
         soundManager.playWrong();
         setStreak(0);
       }
+
+      setAnswersState((prev) => ({
+        ...prev,
+        [current]: { selected: key, revealed: true, clueStep }
+      }));
     },
-    [selected, revealed, mode, timer, answerKey, streak, q.points]
+    [selected, revealed, mode, timer, answerKey, streak, q.points, q.isOpinion, current, clueStep]
   );
 
   const handleReveal = () => {
     soundManager.playClick();
     setRevealed(true);
+    setAnswersState((prev) => ({
+      ...prev,
+      [current]: { selected, revealed: true, clueStep }
+    }));
   };
+
+  const handlePrev = useCallback(() => {
+    if (current === 0) return;
+    soundManager.playClick();
+    const prevIdx = current - 1;
+    setCurrent(prevIdx);
+    const saved = answersState[prevIdx] || { selected: null, revealed: false, clueStep: 1 };
+    setSelected(saved.selected);
+    setRevealed(saved.revealed);
+    setClueStep(saved.clueStep);
+  }, [current, answersState]);
 
   const handleNext = useCallback(() => {
     soundManager.playClick();
@@ -134,13 +171,15 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
       const avg = times.length > 0 ? times.reduce((a, b) => a + b, 0) / times.length : 0;
       onComplete?.({ score, correctCount, maxStreak, avgTime: parseFloat(avg.toFixed(1)) });
     } else {
-      setCurrent((c) => c + 1);
-      setSelected(null);
-      setRevealed(false);
-      setClueStep(1);
+      const nextIdx = current + 1;
+      setCurrent(nextIdx);
+      const saved = answersState[nextIdx] || { selected: null, revealed: false, clueStep: 1 };
+      setSelected(saved.selected);
+      setRevealed(saved.revealed);
+      setClueStep(saved.clueStep);
       setTimer(TIMER_SECONDS);
     }
-  }, [isLast, times, score, correctCount, maxStreak, onComplete]);
+  }, [isLast, times, score, correctCount, maxStreak, onComplete, current, answersState]);
 
   const toggleMute = () => {
     const nextMuted = !isMuted;
@@ -160,7 +199,11 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
         if (key === "4" || key === "D") handleSelect("D");
       }
 
-      if (e.code === "Space") {
+      if (e.code === "ArrowLeft") {
+        if (current > 0) handlePrev();
+      }
+
+      if (e.code === "Space" || e.code === "ArrowRight") {
         e.preventDefault();
         if (revealed) handleNext();
         else if (!selected) handleReveal();
@@ -171,12 +214,12 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [revealed, selected, handleSelect, handleNext]);
+  }, [revealed, selected, current, handleSelect, handleNext, handlePrev]);
 
   return (
     <div className="w-full max-w-5xl space-y-6">
       {/* Quiz Top Control Bar */}
-      <div className="surface p-3.5 sm:p-5 flex items-center justify-between gap-3 flex-wrap">
+      <div className="surface p-3.5 sm:p-5 flex items-center justify-between gap-3 flex-wrap w-full">
         <div className="flex items-center gap-3 sm:gap-4">
           <div className="flex flex-col">
             <span className="text-[10px] sm:text-xs uppercase tracking-wider text-[var(--text-muted)] font-black">Question</span>
@@ -193,7 +236,18 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
           </div>
         </div>
 
-        <div className="flex items-center gap-3 sm:gap-5">
+        <div className="flex items-center gap-3 sm:gap-4">
+          {current > 0 && (
+            <button
+              onClick={handlePrev}
+              className="p-2 sm:p-2.5 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1.5"
+              title="Previous Question"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span className="text-xs font-bold hidden sm:inline">Prev</span>
+            </button>
+          )}
+
           {mode === "quiz" && (
             <div className="flex items-center gap-2 sm:gap-4">
               <div className="flex items-center gap-1 text-amber-400 font-black text-base sm:text-xl">
@@ -220,7 +274,7 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
       </div>
 
       {/* Segmented Progress Dots */}
-      <div className="progress-bar px-1">
+      <div className="progress-bar px-1 w-full">
         {questions.map((_, i) => (
           <div key={i} className={`progress-dot ${i < current ? "done" : ""} ${i === current ? "current" : ""}`} />
         ))}
@@ -228,7 +282,7 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
 
       {/* Timer Line Bar */}
       {timerEnabled && mode === "quiz" && (
-        <div className="timer-track">
+        <div className="timer-track w-full">
           <div
             className={`timer-fill ${timer > 10 ? "safe" : timer > 5 ? "warn" : "danger"}`}
             style={{ width: `${(timer / TIMER_SECONDS) * 100}%` }}
@@ -244,7 +298,7 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -15, scale: 0.98 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="surface p-5 sm:p-10 space-y-4 sm:space-y-6"
+          className="surface p-5 sm:p-10 space-y-4 sm:space-y-6 w-full"
         >
           <div className="flex items-center justify-between text-[11px] sm:text-xs text-[var(--text-secondary)] font-black uppercase tracking-wider">
             <span>{q.category}</span>
@@ -272,13 +326,13 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
                 )}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
                 {q.clues.slice(0, clueStep).map((clue, idx) => (
                   <motion.div
                     key={idx}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="clue-card"
+                    className="clue-card w-full"
                   >
                     <span className="clue-badge">Clue {idx + 1}</span>
                     <span className="text-sm font-bold text-white/90">{clue}</span>
@@ -290,15 +344,20 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
         </motion.div>
       </AnimatePresence>
 
-      {/* Answer Options Grid */}
-      <div className="answer-grid">
+      {/* Answer Options Grid — Direct Tailwind Grid Utility for Rock-Solid 2-Column Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full">
         {q.options.map((text, i) => {
           const key = OPTION_KEYS[i] as "A" | "B" | "C" | "D";
           let stateClass = "";
           if (revealed) {
-            if (key === answerKey) stateClass = "correct";
-            else if (key === selected) stateClass = "wrong";
-            else stateClass = "dimmed";
+            if (q.isOpinion) {
+              if (key === selected) stateClass = "correct";
+              else stateClass = "dimmed";
+            } else {
+              if (key === answerKey) stateClass = "correct";
+              else if (key === selected) stateClass = "wrong";
+              else stateClass = "dimmed";
+            }
           } else if (key === selected) {
             stateClass = "selected";
           }
@@ -310,11 +369,11 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
               whileTap={!revealed ? { scale: 0.98 } : {}}
               onClick={() => handleSelect(key)}
               disabled={revealed}
-              className={`answer-btn ${stateClass}`}
+              className={`answer-btn w-full ${stateClass}`}
               data-color={COLOR_MAP[i]}
             >
               <span className="shape">{SHAPE_MAP[i]}</span>
-              <span className="label">{text}</span>
+              <span className="label text-left">{text}</span>
               <span className="key-badge">{key}</span>
             </motion.button>
           );
@@ -323,9 +382,14 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
 
       {/* Presenter Action Controls */}
       {!selected && !revealed && (
-        <div className="flex justify-center pt-2">
+        <div className="flex items-center justify-center gap-3 pt-2 w-full">
+          {current > 0 && (
+            <button onClick={handlePrev} className="btn btn-secondary btn-lg flex items-center gap-2">
+              <ArrowLeft className="w-5 h-5" /> Previous
+            </button>
+          )}
           <button onClick={handleReveal} className="btn btn-secondary btn-lg flex items-center gap-2">
-            <Eye className="w-5 h-5" /> Reveal Answer (Press Space)
+            <Eye className="w-5 h-5" /> Reveal Answer (Space)
           </button>
         </div>
       )}
@@ -337,28 +401,47 @@ export default function QuizComponent({ questions, mode, timerEnabled, onComplet
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className={`explanation ${selected && selected !== answerKey ? "wrong" : ""}`}
+            className={`explanation w-full ${!q.isOpinion && selected && selected !== answerKey ? "wrong" : ""}`}
           >
             <div className="flex items-start justify-between gap-4 mb-4">
               <p className="text-base sm:text-lg leading-relaxed text-white/90 font-medium">
-                {selected === answerKey ? (
+                {q.isOpinion ? (
                   <>
-                    <span className="text-[var(--success)] font-black">Correct Answer! 🎉</span>{" "}
+                    <span className="text-[var(--eozka-gold)] font-black flex items-center gap-1.5 mb-1">
+                      <Sparkles className="w-5 h-5 text-amber-400" /> Audience Choice!
+                    </span>{" "}
+                    {q.explanation}
+                  </>
+                ) : selected === answerKey ? (
+                  <>
+                    <span className="text-[var(--success)] font-black flex items-center gap-1.5 mb-1">
+                      <Sparkles className="w-5 h-5 text-emerald-400" /> Correct Answer!
+                    </span>{" "}
                     {q.explanation}
                   </>
                 ) : (
                   <>
-                    <span className="text-[var(--error)] font-black">Correct Answer: {q.options[q.correctAnswer]}.</span>{" "}
+                    <span className="text-[var(--error)] font-black flex items-center gap-1.5 mb-1">
+                      <AlertTriangle className="w-5 h-5 text-rose-400" /> Correct Answer: {q.options[q.correctAnswer]}.
+                    </span>{" "}
                     {q.explanation}
                   </>
                 )}
               </p>
             </div>
 
-            <button onClick={handleNext} className="btn btn-gold btn-lg w-full flex items-center justify-center gap-2">
-              <span>{isLast ? "Finish Quiz & View Leaderboard" : "Next Question"}</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-3 w-full">
+              {current > 0 && (
+                <button onClick={handlePrev} className="btn btn-secondary btn-lg flex-1 flex items-center justify-center gap-2">
+                  <ArrowLeft className="w-5 h-5" />
+                  <span>Previous Question</span>
+                </button>
+              )}
+              <button onClick={handleNext} className="btn btn-gold btn-lg flex-1 flex items-center justify-center gap-2">
+                <span>{isLast ? "Finish Quiz & View Results" : "Next Question"}</span>
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
