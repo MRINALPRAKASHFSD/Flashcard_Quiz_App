@@ -1,0 +1,528 @@
+{
+  "id": "default_quiz_dataset",
+  "name": "Default Flashcard & Trivia Quiz",
+  "description": "Comprehensive trivia dataset with 5 core rounds and 40+ questions.",
+  "version": "1.0.0",
+  "updatedAt": "2026-09-28T20:00:00.000Z",
+  "divisions": [
+    {
+      "id": "General Trivia",
+      "title": "Round 1 — General Trivia",
+      "subtitle": "Warm-up round. Easy to medium difficulty.",
+      "scoreRule": "Easy +10 · Medium +15 · Hard +20"
+    },
+    {
+      "id": "Rapid Fire",
+      "title": "Round 2 — Rapid Fire",
+      "subtitle": "Seconds on the clock. Trust your instincts!",
+      "scoreRule": "+10 flat + speed bonus for quick answers"
+    },
+    {
+      "id": "Buzzer Round",
+      "title": "Round 3 — Buzzer Round",
+      "subtitle": "Step-by-step clues revealed one by one. First to spot it wins!",
+      "scoreRule": "+15 points · Clue-by-clue progressive reveal"
+    },
+    {
+      "id": "Connect the Dots",
+      "title": "Round 4 — Connect the Dots",
+      "subtitle": "Analyze the sequence of 4 clues and find the hidden connection.",
+      "scoreRule": "+20 points for full pattern connection"
+    },
+    {
+      "id": "Audience Round",
+      "title": "Round 5 — Audience Round",
+      "subtitle": "For the whole room. Everyone plays, everyone can score!",
+      "scoreRule": "Bonus points · Whole room participation"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Which app's logo is a white paper airplane on a blue background?",
+      "options": ["WhatsApp", "Telegram", "Twitter / X", "Signal"],
+      "correctAnswer": 1,
+      "explanation": "Telegram's iconic logo features a sleek white paper plane inside a bright blue circle.",
+      "points": 10
+    },
+    {
+      "id": 2,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "What does the term 'AI' stand for?",
+      "options": ["Automated Interface", "Artificial Intelligence", "Augmented Insight", "Applied Integration"],
+      "correctAnswer": 1,
+      "explanation": "AI stands for Artificial Intelligence, referring to machines and systems designed to mimic human cognitive processes.",
+      "points": 10
+    },
+    {
+      "id": 3,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Which of these is NOT a real Instagram feature — Reels, Stories, Snaps, or Close Friends?",
+      "options": ["Reels", "Stories", "Snaps", "Close Friends"],
+      "correctAnswer": 2,
+      "explanation": "Snaps is a feature and term exclusive to Snapchat, whereas Reels, Stories, and Close Friends are Instagram features.",
+      "points": 10
+    },
+    {
+      "id": 4,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Which Indian city is nicknamed the 'Silicon Valley of India'?",
+      "options": ["Hyderabad", "Pune", "Gurugram", "Bengaluru"],
+      "correctAnswer": 3,
+      "explanation": "Bengaluru (Bangalore) earned this nickname as India's leading IT exporter and technology innovation hub.",
+      "points": 15
+    },
+    {
+      "id": 5,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Which tech giant was originally named 'BackRub' before its famous rebrand?",
+      "options": ["Google", "Yahoo", "Amazon", "Microsoft"],
+      "correctAnswer": 0,
+      "explanation": "Larry Page and Sergey Brin originally named their search engine 'BackRub' in 1996 because it analyzed web backlinks before renaming it Google.",
+      "points": 15
+    },
+    {
+      "id": 6,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Every slide of this quiz has one word on it somewhere — what's the name of today's orientation program?",
+      "options": ["Aarambh", "Nav-Tarang", "Deeksharambh", "Freshers Hub"],
+      "correctAnswer": 2,
+      "explanation": "'Deeksharambh' is the official student induction and orientation program designed to welcome freshers to KRMU!",
+      "points": 15
+    },
+    {
+      "id": 7,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "True or False: The Great Wall of China is visible from space with the naked eye.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False — it's a popular myth. NASA astronauts have confirmed the Great Wall cannot be seen without magnification in low Earth orbit.",
+      "points": 20
+    },
+    {
+      "id": 8,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Which country is credited with sending the world's first emoji out into the wild, back in 1999?",
+      "options": ["South Korea", "Japan", "United States", "Sweden"],
+      "correctAnswer": 1,
+      "explanation": "Shigetaka Kurita created the first set of 176 emojis in 1999 for Japanese mobile operator NTT DoCoMo.",
+      "points": 20
+    },
+    {
+      "id": 33,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Which programming language was created by Brendan Eich in just 10 days in 1995?",
+      "options": ["Python", "Java", "JavaScript", "C++"],
+      "correctAnswer": 2,
+      "explanation": "Brendan Eich created Netscape's LiveScript (later renamed JavaScript) in May 1995 in just 10 days!",
+      "points": 15
+    },
+    {
+      "id": 34,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "What does 'HTTP' stand for in web address URLs?",
+      "options": ["HyperText Transfer Protocol", "High Transfer Text Program", "Hyperlink Text Technical Process", "Host Terminal Transfer Protocol"],
+      "correctAnswer": 0,
+      "explanation": "HTTP stands for HyperText Transfer Protocol, the foundational protocol used to transfer web pages across the internet.",
+      "points": 10
+    },
+    {
+      "id": 35,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Which revolutionary AI chatbot released in late 2022 became the fastest consumer app to reach 100M users?",
+      "options": ["Claude", "ChatGPT", "Gemini", "Copilot"],
+      "correctAnswer": 1,
+      "explanation": "OpenAI's ChatGPT launched in November 2022 and reached 100 million active users in just two months!",
+      "points": 15
+    },
+    {
+      "id": 36,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "What is the name of GitHub's famous cat-octopus mascot?",
+      "options": ["Gitty", "Bugsy", "Octocat", "Squidward"],
+      "correctAnswer": 2,
+      "explanation": "Monalisa the Octocat is GitHub's iconic mascot, featuring an octopus head with a cat face!",
+      "points": 15
+    },
+    {
+      "id": 37,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Which operating system mascot is a penguin named 'Tux'?",
+      "options": ["Ubuntu", "Fedora", "Debian", "Linux"],
+      "correctAnswer": 3,
+      "explanation": "Tux the penguin was created by Larry Ewing in 1996 as the official brand mascot of the Linux kernel.",
+      "points": 15
+    },
+    {
+      "id": 38,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Which tech giant acquired GitHub for $7.5 Billion in 2018?",
+      "options": ["Microsoft", "Google", "Meta", "Amazon"],
+      "correctAnswer": 0,
+      "explanation": "Microsoft acquired GitHub in June 2018 to support open-source software development and cloud workflows.",
+      "points": 15
+    },
+    {
+      "id": 39,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "What does 'CPU' stand for in computer hardware?",
+      "options": ["Central Processing Unit", "Computer Power Utility", "Core Performance Unit", "Control Program User"],
+      "correctAnswer": 0,
+      "explanation": "The CPU (Central Processing Unit) is the core processor often called the 'brain' of the computer.",
+      "points": 10
+    },
+    {
+      "id": 40,
+      "level": "Round 1 — General Trivia",
+      "category": "General Trivia",
+      "question": "Which social media platform uses a ghost mascot named 'Ghostface Chillah'?",
+      "options": ["Discord", "Snapchat", "Telegram", "Reddit"],
+      "correctAnswer": 1,
+      "explanation": "Snapchat's famous white ghost mascot on a yellow background is named Ghostface Chillah!",
+      "points": 10
+    },
+    {
+      "id": 9,
+      "level": "Round 2 — Rapid Fire",
+      "category": "Rapid Fire",
+      "question": "Either/Or: Instagram or Snapchat — which app launched first?",
+      "options": ["Instagram", "Snapchat"],
+      "correctAnswer": 0,
+      "explanation": "Instagram launched in October 2010, whereas Snapchat launched nearly a year later in July 2011.",
+      "points": 10
+    },
+    {
+      "id": 10,
+      "level": "Round 2 — Rapid Fire",
+      "category": "Rapid Fire",
+      "question": "What's the name of the tech company that started as an online bookstore and is now named after a rainforest?",
+      "options": ["Flipkart", "eBay", "Amazon", "Rakuten"],
+      "correctAnswer": 2,
+      "explanation": "Jeff Bezos founded Amazon in 1994 as an online marketplace for books before expanding into e-commerce, cloud, and tech.",
+      "points": 10
+    },
+    {
+      "id": 11,
+      "level": "Round 2 — Rapid Fire",
+      "category": "Rapid Fire",
+      "question": "Either/Or: iOS or Android — which one is open-source?",
+      "options": ["iOS", "Android"],
+      "correctAnswer": 1,
+      "explanation": "Android's core code is released under the Android Open Source Project (AOSP), whereas iOS is proprietary.",
+      "points": 10
+    },
+    {
+      "id": 12,
+      "level": "Round 2 — Rapid Fire",
+      "category": "Rapid Fire",
+      "question": "What is the capital city of Japan?",
+      "options": ["Kyoto", "Osaka", "Tokyo", "Yokohama"],
+      "correctAnswer": 2,
+      "explanation": "Tokyo has been the capital city and seat of government of Japan since 1868.",
+      "points": 10
+    },
+    {
+      "id": 13,
+      "level": "Round 2 — Rapid Fire",
+      "category": "Rapid Fire",
+      "question": "Identify: Which global tech brand's logo features a bitten apple?",
+      "options": ["Blackberry", "Android", "Windows", "Apple"],
+      "correctAnswer": 3,
+      "explanation": "Rob Janoff designed Apple's famous bitten apple logo in 1977 so it wouldn't be mistaken for a cherry.",
+      "points": 10
+    },
+    {
+      "id": 14,
+      "level": "Round 2 — Rapid Fire",
+      "category": "Rapid Fire",
+      "question": "Which messaging app features a green icon with a white phone receiver?",
+      "options": ["WhatsApp", "WeChat", "LINE", "Telegram"],
+      "correctAnswer": 0,
+      "explanation": "WhatsApp's green icon featuring a phone inside a speech bubble is used by over 2 billion users worldwide.",
+      "points": 10
+    },
+    {
+      "id": 15,
+      "level": "Round 2 — Rapid Fire",
+      "category": "Rapid Fire",
+      "question": "In what year did India gain independence from British rule?",
+      "options": ["1950", "1947", "1942", "1952"],
+      "correctAnswer": 1,
+      "explanation": "India achieved independence at midnight on August 15, 1947.",
+      "points": 10
+    },
+    {
+      "id": 16,
+      "level": "Round 2 — Rapid Fire",
+      "category": "Rapid Fire",
+      "question": "Either/Or: Cricket or Kabaddi — which one originated in India?",
+      "options": ["Cricket", "Kabaddi"],
+      "correctAnswer": 1,
+      "explanation": "Kabaddi is an ancient contact sport that originated in India thousands of years ago, while Cricket originated in England.",
+      "points": 10
+    },
+    {
+      "id": 17,
+      "level": "Round 3 — Buzzer Round",
+      "category": "Buzzer Round",
+      "question": "Identify this iconic Superhero based on progressive clues:",
+      "clues": [
+        "Bitten by a spider during a school trip — not born with alien powers",
+        "Balances being a high school student with a secret crime-fighting life",
+        "His motto is: 'With great power comes great responsibility'",
+        "Wears a red and blue suit and swings on webs between New York skyscrapers"
+      ],
+      "options": ["Iron Man", "Batman", "Spider-Man", "Deadpool"],
+      "correctAnswer": 2,
+      "explanation": "Peter Parker gained superhero abilities after being bitten by a radioactive spider in a lab accident.",
+      "points": 15
+    },
+    {
+      "id": 18,
+      "level": "Round 3 — Buzzer Round",
+      "category": "Buzzer Round",
+      "question": "Identify this global Brand based on progressive clues:",
+      "clues": [
+        "Its iconic single-line logo is a simple 'Swoosh'",
+        "Named after the ancient Greek goddess of victory",
+        "Famous worldwide for Air Jordans and its slogan 'Just Do It'",
+        "The world's leading sports footwear and athletic brand"
+      ],
+      "options": ["Adidas", "Puma", "Reebok", "Nike"],
+      "correctAnswer": 3,
+      "explanation": "Nike was named after the Greek goddess of victory, and Carolyn Davidson created its iconic swoosh logo in 1971.",
+      "points": 15
+    },
+    {
+      "id": 19,
+      "level": "Round 3 — Buzzer Round",
+      "category": "Buzzer Round",
+      "question": "Identify this blockbuster Movie based on progressive clues:",
+      "clues": [
+        "Set on a distant alien moon named Pandora filled with bioluminescent forests",
+        "Humans connect their minds to tall, blue-skinned native bodies called Na'vi",
+        "Directed by James Cameron, it became the highest-grossing film of all time ($2.9B+)",
+        "The 3D sci-fi epic featuring Jake Sully and Neytiri"
+      ],
+      "options": ["Avatar", "Star Wars", "Guardians of the Galaxy", "Interstellar"],
+      "correctAnswer": 0,
+      "explanation": "Released in 2009 by James Cameron, Avatar broke all global box office records.",
+      "points": 15
+    },
+    {
+      "id": 20,
+      "level": "Round 3 — Buzzer Round",
+      "category": "Buzzer Round",
+      "question": "Identify this tech Company / Platform based on progressive clues:",
+      "clues": [
+        "Pioneered hashtags (#), trending topics, and viral retweets",
+        "Famous for its original strict 140-character text limit per post",
+        "Elon Musk bought this social platform for $44 Billion",
+        "Rebranded from the iconic blue bird logo to the letter 'X' in 2023"
+      ],
+      "options": ["Threads", "Twitter (now X)", "Reddit", "Facebook"],
+      "correctAnswer": 1,
+      "explanation": "Twitter rebranded to 'X' in July 2023 under Elon Musk, replacing the classic blue bird logo.",
+      "points": 15
+    },
+    {
+      "id": 21,
+      "level": "Round 3 — Buzzer Round",
+      "category": "Buzzer Round",
+      "question": "Identify this global Event based on progressive clues:",
+      "clues": [
+        "Held once every 4 years with top athletes competing for Gold, Silver, and Bronze",
+        "Opens with a legendary sacred torch relay across the host country",
+        "Its official emblem features 5 interlocking colorful rings",
+        "Paris hosted the recent 2024 edition of this global sports spectacle"
+      ],
+      "options": ["FIFA World Cup", "Commonwealth Games", "The Olympics", "Asian Games"],
+      "correctAnswer": 2,
+      "explanation": "The Olympic Games gather top athletes worldwide every four years, with Paris hosting the 2024 Summer Olympics.",
+      "points": 15
+    },
+    {
+      "id": 22,
+      "level": "Round 3 — Buzzer Round",
+      "category": "Buzzer Round",
+      "question": "Identify this tech Legend based on progressive clues:",
+      "clues": [
+        "Traveled across India in the 1970s seeking spiritual enlightenment before launching a tech empire",
+        "Co-founded Apple in a family garage and was famous for wearing a black turtleneck",
+        "Was ousted from his own company, then returned to save it with the iMac & iPod",
+        "Unveiled the very first revolutionary iPhone on stage in 2007"
+      ],
+      "options": ["Bill Gates", "Elon Musk", "Mark Zuckerberg", "Steve Jobs"],
+      "correctAnswer": 3,
+      "explanation": "Steve Jobs co-founded Apple in 1976, revolutionizing personal computers, digital music, and smartphones.",
+      "points": 15
+    },
+    {
+      "id": 23,
+      "level": "Round 4 — Connect the Dots",
+      "category": "Connect the Dots",
+      "question": "Java → Python → Ruby → Swift → ?",
+      "options": [
+        "They are all Programming Languages",
+        "They are all Web Browsers",
+        "They are all Tech CEOs",
+        "They are all Operating Systems"
+      ],
+      "correctAnswer": 0,
+      "explanation": "All items in this sequence are popular high-level computer programming languages!",
+      "points": 20
+    },
+    {
+      "id": 24,
+      "level": "Round 4 — Connect the Dots",
+      "category": "Connect the Dots",
+      "question": "Titanic → Avatar → Avengers: Endgame → Star Wars: The Force Awakens → ?",
+      "options": [
+        "All won Oscar Best Picture awards",
+        "All ranked among the Highest-Grossing Films of All Time",
+        "All were directed by James Cameron",
+        "All were filmed in New Zealand"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Every film listed has grossed over $2 Billion worldwide, occupying top positions on the all-time box office chart.",
+      "points": 20
+    },
+    {
+      "id": 25,
+      "level": "Round 4 — Connect the Dots",
+      "category": "Connect the Dots",
+      "question": "Bengaluru → Hyderabad → Pune → Gurugram → ?",
+      "options": [
+        "Capital Cities of Indian States",
+        "Major Coastal Port Cities of India",
+        "All major IT & Tech Hub Cities in India",
+        "Union Territories of India"
+      ],
+      "correctAnswer": 2,
+      "explanation": "These 4 Indian cities form the primary backbone of India's technology, software exports, and tech startup ecosystem.",
+      "points": 20
+    },
+    {
+      "id": 26,
+      "level": "Round 4 — Connect the Dots",
+      "category": "Connect the Dots",
+      "question": "Elon Musk → Jeff Bezos → Richard Branson → ?",
+      "options": [
+        "Owners of social media platforms",
+        "Founders of EV automobile companies",
+        "Pioneers of AI search engines",
+        "Billionaires who built their own private space companies"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Musk (SpaceX), Bezos (Blue Origin), and Branson (Virgin Galactic) are all billionaires funding private space exploration.",
+      "points": 20
+    },
+    {
+      "id": 27,
+      "level": "Round 5 — Audience Round",
+      "category": "Audience Round",
+      "question": "Raise your hand if you've ever nodded along to a meme you didn't actually understand!",
+      "options": [
+        "Yes - all the time!",
+        "No - I understand every meme",
+        "Only on Mondays",
+        "What is a meme?"
+      ],
+      "correctAnswer": 0,
+      "isOpinion": true,
+      "explanation": "No wrong answers — full marks for honesty! Memes evolve faster than college schedules.",
+      "points": 15
+    },
+    {
+      "id": 28,
+      "level": "Round 5 — Audience Round",
+      "category": "Audience Round",
+      "question": "Closest guess wins: roughly how many new students got admitted to KRMU this year?",
+      "options": [
+        "~1,000 Students",
+        "~4,500+ Freshers",
+        "~2,000 Students",
+        "~500 Students"
+      ],
+      "correctAnswer": 1,
+      "explanation": "KRMU welcomed over 4,500+ bright new freshers across various undergraduate and postgraduate programs!",
+      "points": 15
+    },
+    {
+      "id": 29,
+      "level": "Round 5 — Audience Round",
+      "category": "Audience Round",
+      "question": "Guess it: how many hours a day do you think the average college student spends on their phone?",
+      "options": [
+        "1–2 hours a day",
+        "3–4 hours a day",
+        "6–8 hours a day",
+        "10+ hours a day"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Studies show college students spend roughly 6 to 8 hours daily on smartphones for learning and entertainment!",
+      "points": 15
+    },
+    {
+      "id": 30,
+      "level": "Round 5 — Audience Round",
+      "category": "Audience Round",
+      "question": "Which social media platform introduced short-form video 'Reels' in 2020?",
+      "options": [
+        "TikTok",
+        "Instagram",
+        "YouTube",
+        "Snapchat"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Instagram launched Reels in August 2020 to allow users to create and discover short, entertaining videos.",
+      "points": 15
+    },
+    {
+      "id": 31,
+      "level": "Round 5 — Audience Round",
+      "category": "Audience Round",
+      "question": "Which traditional beverage is celebrated as the ultimate daily energizer across Indian college campuses?",
+      "options": [
+        "Filter Coffee",
+        "Lassi",
+        "Nimbu Pani",
+        "Masala Chai"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Masala Chai is the ultimate staple energizer across Indian college canteens and campus hangouts!",
+      "points": 15
+    },
+    {
+      "id": 32,
+      "level": "Round 5 — Audience Round",
+      "category": "Audience Round",
+      "question": "What is considered the most effective way to make the most of your fresher year during orientation?",
+      "options": [
+        "Networking & Club Participation",
+        "Attending lectures only",
+        "Staying in your dorm room",
+        "Skipping orientation events"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Active networking and joining campus clubs is the best way to thrive and build lifelong connections during college!",
+      "points": 15
+    }
+  ]
+}

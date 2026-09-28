@@ -1,0 +1,53 @@
+{
+  "id": "krmu_fresher_quiz",
+  "name": "KRMU Fresher Orientation Special",
+  "description": "Custom orientation quiz designed for incoming freshers at KRM University.",
+  "version": "1.0.0",
+  "updatedAt": "2026-09-28T20:00:00.000Z",
+  "divisions": [
+    {
+      "id": "Campus Life",
+      "title": "Division 1 — Campus Life & Landmarks",
+      "subtitle": "Discovering KRMU campus secrets and student life.",
+      "scoreRule": "+10 points per answer"
+    },
+    {
+      "id": "Tech & Innovation",
+      "title": "Division 2 — Tech & Innovation",
+      "subtitle": "Testing tech literacy and modern digital trends.",
+      "scoreRule": "+15 points per answer"
+    }
+  ],
+  "questions": [
+    {
+      "id": 101,
+      "level": "Division 1 — Campus Life & Landmarks",
+      "category": "Campus Life",
+      "question": "What is the official orientation program name for freshers at KRMU?",
+      "options": ["Aarambh", "Nav-Tarang", "Deeksharambh", "Udbhav"],
+      "correctAnswer": 2,
+      "explanation": "Deeksharambh is KRMU's flagship student induction program!",
+      "points": 10
+    },
+    {
+      "id": 102,
+      "level": "Division 1 — Campus Life & Landmarks",
+      "category": "Campus Life",
+      "question": "Which spot on campus is famous for chai and student discussions between lectures?",
+      "options": ["Central Library", "Main Canteen", "Auditorium", "Sports Complex"],
+      "correctAnswer": 1,
+      "explanation": "The main canteen is the ultimate campus social hub!",
+      "points": 10
+    },
+    {
+      "id": 103,
+      "level": "Division 2 — Tech & Innovation",
+      "category": "Tech & Innovation",
+      "question": "What is the primary programming language used to build modern Next.js web applications?",
+      "options": ["Python", "TypeScript / JavaScript", "C++", "Ruby"],
+      "correctAnswer": 1,
+      "explanation": "TypeScript / JavaScript powers modern web development with Next.js and React!",
+      "points": 15
+    }
+  ]
+}

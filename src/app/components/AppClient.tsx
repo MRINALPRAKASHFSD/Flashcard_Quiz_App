@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Confetti from "canvas-confetti";
 import QuizComponent from "./QuizComponent";
-// Leaderboard is currently disabled
-// import LeaderboardComponent from "./LeaderboardComponent";
 import Footer from "./Footer";
-import { questions, getQuestionsByCategory, categories, roundDescriptions } from "@/data/questions";
+import AdminCMSModal from "./AdminCMSModal";
+import { cmsStorage } from "@/app/services/cmsStorage";
+import { Question as CMSQuestion, Dataset, QuizCMSConfig } from "@/app/types/cms";
+import { categories, roundDescriptions } from "@/data/questions";
 import { soundManager } from "@/app/utils/soundEffects";
 import {
   ShieldCheck,
@@ -29,12 +30,17 @@ import {
   ArrowRight,
   Lock,
   AlertTriangle,
+  Database,
+  Sliders,
+  FolderDown,
+  Shuffle,
+  Layers,
 } from "lucide-react";
 
 const CORRECT_PIN = process.env.NEXT_PUBLIC_QUIZ_PIN || "";
 const LEADERBOARD_KEY = "quiz_leaderboard";
 
-type Category = typeof categories[number];
+type Category = (typeof categories)[number];
 type Mode = "presentation" | "quiz";
 
 interface LobbyConfig {
@@ -74,6 +80,16 @@ export default function AppClient() {
   const [phase, setPhase] = useState<"pin" | "lobby" | "quiz" | "results">("pin");
   const [pinInput, setPinInput] = useState("");
   const [pinError, setPinError] = useState(false);
+
+  // Admin CMS Modal
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
+
+  // CMS State
+  const [activeDataset, setActiveDataset] = useState<Dataset | null>(null);
+  const [cmsConfig, setCmsConfig] = useState<QuizCMSConfig | null>(null);
+  const [preparedQuizQuestions, setPreparedQuizQuestions] = useState<CMSQuestion[]>([]);
+  const [totalDatasetQuestions, setTotalDatasetQuestions] = useState(0);
+
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [lobbyConfig, setLobbyConfig] = useState<LobbyConfig>({
     category: "All",
@@ -81,7 +97,8 @@ export default function AppClient() {
     timerEnabled: false,
     playerName: "",
   });
-  const [quizQuestions, setQuizQuestions] = useState<ReturnType<typeof getQuestionsByCategory>>([]);
+
+  const [quizQuestions, setQuizQuestions] = useState<any[]>([]);
   const [quizResults, setQuizResults] = useState<{
     score: number;
     correctCount: number;
@@ -90,14 +107,34 @@ export default function AppClient() {
     category: string;
   } | null>(null);
 
+  // Load CMS Data
+  const reloadCMSData = useCallback(async () => {
+    try {
+      await cmsStorage.initDB();
+      const active = await cmsStorage.getActiveDataset();
+      setActiveDataset(active);
+
+      const cfg = await cmsStorage.getQuizConfig();
+      setCmsConfig(cfg);
+
+      const prepared = await cmsStorage.getPreparedQuizQuestions();
+      setPreparedQuizQuestions(prepared.questions);
+      setTotalDatasetQuestions(prepared.totalDatasetQuestions);
+    } catch (err) {
+      console.error("Error loading CMS data into AppClient:", err);
+    }
+  }, []);
+
   useEffect(() => {
+    reloadCMSData();
+
     try {
       const stored = localStorage.getItem(LEADERBOARD_KEY);
       if (stored) setLeaderboard(JSON.parse(stored));
     } catch {
       setLeaderboard([]);
     }
-  }, []);
+  }, [reloadCMSData]);
 
   const saveLeaderboard = useCallback((entries: LeaderboardEntry[]) => {
     try {
@@ -107,12 +144,6 @@ export default function AppClient() {
       console.error("Failed to save leaderboard:", e);
     }
   }, []);
-
-  const handleClearLeaderboard = useCallback(() => {
-    saveLeaderboard([]);
-  }, [saveLeaderboard]);
-
-  const filteredQuestions = getQuestionsByCategory(lobbyConfig.category);
 
   const handlePinSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -142,9 +173,20 @@ export default function AppClient() {
     setQuizQuestions([]);
   };
 
-  const handleStartQuiz = () => {
+  const handleStartQuiz = async () => {
     soundManager.playClick();
-    setQuizQuestions(filteredQuestions);
+    // Load dynamically prepared questions from CMS Local DB
+    const prepared = await cmsStorage.getPreparedQuizQuestions();
+    
+    // Filter by lobby selected category if specific category chosen in lobby
+    let finalQuestions = prepared.questions;
+    if (lobbyConfig.category !== "All") {
+      finalQuestions = finalQuestions.filter(
+        (q) => q.category === lobbyConfig.category || q.level === lobbyConfig.category
+      );
+    }
+
+    setQuizQuestions(finalQuestions);
     setPhase("quiz");
   };
 
@@ -163,28 +205,15 @@ export default function AppClient() {
     [lobbyConfig.category]
   );
 
-  const handleSaveScore = useCallback(() => {
-    if (!lobbyConfig.playerName.trim() || !quizResults) return;
-    soundManager.playClick();
-    const entry: LeaderboardEntry = {
-      id: Date.now(),
-      name: lobbyConfig.playerName.trim(),
-      score: quizResults.score,
-      createdAt: new Date().toISOString(),
-      category: lobbyConfig.category !== "All" ? lobbyConfig.category : undefined,
-    };
-    const updated = [entry, ...leaderboard].sort((a, b) => b.score - a.score).slice(0, 10);
-    saveLeaderboard(updated);
-  }, [lobbyConfig.playerName, quizResults, leaderboard, saveLeaderboard, lobbyConfig.category]);
-
   const handlePlayAgain = () => {
     soundManager.playClick();
     setPhase("lobby");
     setQuizResults(null);
     setQuizQuestions([]);
+    reloadCMSData();
   };
 
-  /* ───────────── LANDING / PIN SCREEN (Split Screen with Clean eOzka Vector Logo) ───────────── */
+  /* ───────────── LANDING / PIN SCREEN ───────────── */
   if (phase === "pin") {
     return (
       <div className="min-h-screen w-full flex flex-col justify-between relative">
@@ -209,7 +238,7 @@ export default function AppClient() {
                   />
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-black uppercase tracking-wider">
-                  <Sparkles className="w-3.5 h-3.5" /> Deeksharambh Orientation
+                  <Sparkles className="w-3.5 h-3.5" /> Deeksharambh Orientation & CMS
                 </div>
               </div>
 
@@ -218,14 +247,22 @@ export default function AppClient() {
                   Elevate Your Quiz Experience
                 </h1>
                 <p className="text-white/80 text-sm sm:text-base font-medium max-w-md leading-relaxed">
-                  Presenter control, high-performance interactive scoring, and total audience engagement powered by eOzka.
+                  Presenter control, high-performance CMS dataset management, local DB persistence, and audience engagement.
                 </p>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className="w-8 h-1.5 rounded-full bg-amber-400" />
-                <span className="w-4 h-1.5 rounded-full bg-white/20" />
-                <span className="w-4 h-1.5 rounded-full bg-white/20" />
+              {/* Admin CMS Launcher Button */}
+              <div className="pt-2">
+                <button
+                  onClick={() => {
+                    soundManager.playClick();
+                    setIsAdminOpen(true);
+                  }}
+                  className="px-5 py-3 rounded-2xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center gap-2 transition-all shadow-lg backdrop-blur-md cursor-pointer"
+                >
+                  <Database className="w-4 h-4 text-amber-400" />
+                  Launch Admin CMS Panel & Datasets
+                </button>
               </div>
             </div>
 
@@ -271,22 +308,36 @@ export default function AppClient() {
                 </button>
               </form>
 
-              <div className="pt-4 border-t border-white/5 text-center">
+              <div className="pt-4 border-t border-white/5 flex items-center justify-between">
                 <button
                   onClick={handleQuickDemoPin}
-                  className="text-xs font-bold text-[var(--text-secondary)] hover:text-amber-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                  className="text-xs font-bold text-[var(--text-secondary)] hover:text-amber-300 transition-colors cursor-pointer"
                 >
+                  Quick Sign-In
+                </button>
+
+                <button
+                  onClick={() => setIsAdminOpen(true)}
+                  className="text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <Database className="w-3.5 h-3.5" /> CMS Admin
                 </button>
               </div>
             </div>
           </motion.div>
         </div>
         <Footer />
+
+        <AdminCMSModal
+          isOpen={isAdminOpen}
+          onClose={() => setIsAdminOpen(false)}
+          onConfigChange={reloadCMSData}
+        />
       </div>
     );
   }
 
-  /* ───────────── LOBBY SCREEN (Clean Native eOzka Logo Header) ───────────── */
+  /* ───────────── LOBBY SCREEN ───────────── */
   if (phase === "lobby") {
     const selectedRoundInfo = roundDescriptions[lobbyConfig.category];
 
@@ -305,9 +356,22 @@ export default function AppClient() {
               />
             </div>
 
-            <button onClick={handleLogout} className="btn btn-ghost btn-sm flex items-center gap-1.5">
-              <LogOut className="w-4 h-4" /> Exit
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => {
+                  soundManager.playClick();
+                  setIsAdminOpen(true);
+                }}
+                className="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-md"
+              >
+                <Database className="w-4 h-4 text-amber-400" />
+                CMS Admin Panel
+              </button>
+
+              <button onClick={handleLogout} className="btn btn-ghost btn-sm flex items-center gap-1.5">
+                <LogOut className="w-4 h-4" /> Exit
+              </button>
+            </div>
           </header>
 
           <div className="flex-1 flex items-start justify-center px-4 pb-16 pt-2">
@@ -316,40 +380,42 @@ export default function AppClient() {
               animate={{ opacity: 1, y: 0 }}
               className="w-full max-w-5xl space-y-6"
             >
-              {/* Hero Banner */}
+              {/* CMS Active Banner */}
               <div className="surface p-8 sm:p-10 bg-gradient-to-r from-[#17152e] via-[#1a1836] to-[#25224e] text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6 relative overflow-hidden border border-amber-500/20">
                 <div className="space-y-2 max-w-lg z-10">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-black uppercase tracking-wider">
-                    <Sparkles className="w-3.5 h-3.5" /> KRMU Orientation
+                    <Database className="w-3.5 h-3.5" /> CMS Active Dataset: {activeDataset?.name || "Default Quiz"}
                   </div>
                   <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white flex items-center gap-2">
                     Ready for a Quiz? <Sparkles className="w-7 h-7 text-amber-400" />
                   </h1>
                   <p className="text-white/70 text-sm sm:text-base font-medium">
-                    Test knowledge, reveal clues step-by-step, and engage your audience!
+                    Dataset configured with {preparedQuizQuestions.length} questions ready out of {totalDatasetQuestions} total.
                   </p>
                 </div>
 
                 <div className="flex items-center gap-3 z-10">
                   <div className="px-5 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-center">
-                    <div className="text-2xl font-black text-amber-300">{questions.length}</div>
-                    <div className="text-[11px] font-extrabold uppercase tracking-wider text-white/70">Questions</div>
+                    <div className="text-2xl font-black text-amber-300">{preparedQuizQuestions.length}</div>
+                    <div className="text-[11px] font-extrabold uppercase tracking-wider text-white/70">Selected Qs</div>
                   </div>
                   <div className="px-5 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-center">
-                    <div className="text-2xl font-black text-emerald-400">5</div>
-                    <div className="text-[11px] font-extrabold uppercase tracking-wider text-white/70">Rounds</div>
+                    <div className="text-2xl font-black text-emerald-400">
+                      {cmsConfig?.enableQuestionRandomizer ? "ON" : "OFF"}
+                    </div>
+                    <div className="text-[11px] font-extrabold uppercase tracking-wider text-white/70">Randomizer</div>
                   </div>
                 </div>
               </div>
 
-              {/* Category Cards */}
+              {/* Categories & Rounds Grid */}
               <section className="surface p-6 sm:p-8 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-xl font-black text-white">Categories & Rounds</h2>
-                    <p className="text-xs text-[var(--text-secondary)] font-bold">Select a category or play all rounds</p>
+                    <h2 className="text-xl font-black text-white">Categories & Divisions</h2>
+                    <p className="text-xs text-[var(--text-secondary)] font-bold">Select a round or play all CMS selected questions</p>
                   </div>
-                  <span className="badge badge-all">{filteredQuestions.length} Questions Loaded</span>
+                  <span className="badge badge-all">{preparedQuizQuestions.length} Questions Ready</span>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
@@ -363,19 +429,17 @@ export default function AppClient() {
                       className={`
                       flex flex-col items-center justify-center p-4 rounded-2xl font-black text-xs
                       border-2 transition-all duration-200 cursor-pointer text-center gap-2
-                      ${lobbyConfig.category === cat
+                      ${
+                        lobbyConfig.category === cat
                           ? "border-[var(--eozka-gold)] bg-amber-500/10 text-white shadow-md scale-[1.03]"
                           : "border-white/10 bg-white/2 text-[var(--text-secondary)] hover:border-white/20 hover:text-white"
-                        }
+                      }
                     `}
                     >
                       <div className={`p-2.5 rounded-xl ${lobbyConfig.category === cat ? "bg-amber-400 text-slate-950" : "bg-white/10 text-white"}`}>
                         {CATEGORY_ICONS[cat]}
                       </div>
                       <span className="truncate w-full">{cat}</span>
-                      <span className="text-[10px] font-extrabold opacity-60 font-mono">
-                        {cat === "All" ? questions.length : getQuestionsByCategory(cat).length} Q
-                      </span>
                     </button>
                   ))}
                 </div>
@@ -389,103 +453,16 @@ export default function AppClient() {
                 )}
               </section>
 
-              {/* Mode Selector */}
-              <section className="surface p-6 sm:p-8 space-y-4">
-                <div>
-                  <h2 className="text-xl font-black text-white">Presentation Mode</h2>
-                  <p className="text-xs text-[var(--text-secondary)] font-bold">Select mode based on how you are presenting</p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {([
-                    {
-                      value: "presentation" as Mode,
-                      label: "Kahoot Presenter Mode",
-                      desc: "Manual answer reveal & clue progression. Perfect for live orientation hosting on screen.",
-                    },
-                    {
-                      value: "quiz" as Mode,
-                      label: "Student Quiz Mode",
-                      desc: "Timed scoring, streak multipliers, and high score saving for competitive audience play.",
-                    },
-                  ]).map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => {
-                        soundManager.playClick();
-                        setLobbyConfig((p) => ({ ...p, mode: opt.value }));
-                      }}
-                      className={`option-card ${lobbyConfig.mode === opt.value ? "selected" : ""}`}
-                    >
-                      <div className="title">
-                        <span>{opt.label}</span>
-                        {lobbyConfig.mode === opt.value && <CheckCircle2 className="w-5 h-5 text-amber-400" />}
-                      </div>
-                      <div className="desc">{opt.desc}</div>
-                    </button>
-                  ))}
-                </div>
-              </section>
-
-              {/* Quiz Mode Settings */}
-              {lobbyConfig.mode === "quiz" && (
-                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="space-y-6">
-                  <section className="surface p-6 sm:p-8 space-y-4">
-                    <div>
-                      <h2 className="text-xl font-black text-white">Countdown Timer</h2>
-                      <p className="text-xs text-[var(--text-secondary)] font-bold">Time limit per question</p>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      {([
-                        { value: true, label: "15s Timer ON", desc: "Adds speed pressure and bonus points" },
-                        { value: false, label: "Timer OFF", desc: "No time limit per question" },
-                      ]).map((opt) => (
-                        <button
-                          key={opt.label}
-                          onClick={() => {
-                            soundManager.playClick();
-                            setLobbyConfig((p) => ({ ...p, timerEnabled: opt.value }));
-                          }}
-                          className={`option-card ${lobbyConfig.timerEnabled === opt.value ? "selected" : ""}`}
-                        >
-                          <div className="title">
-                            <span>{opt.label}</span>
-                            {lobbyConfig.timerEnabled === opt.value && <Timer className="w-5 h-5 text-amber-400" />}
-                          </div>
-                          <div className="desc">{opt.desc}</div>
-                        </button>
-                      ))}
-                    </div>
-                  </section>
-
-                  <section className="surface p-6 sm:p-8 space-y-4">
-                    <div>
-                      <h2 className="text-xl font-black text-white">Player or Team Name</h2>
-                      <p className="text-xs text-[var(--text-secondary)] font-bold">Appears on the high score leaderboard</p>
-                    </div>
-                    <input
-                      type="text"
-                      value={lobbyConfig.playerName}
-                      onChange={(e) => setLobbyConfig((p) => ({ ...p, playerName: e.target.value }))}
-                      placeholder="Enter Team Name or Player Name..."
-                      maxLength={25}
-                      className="input"
-                    />
-                  </section>
-                </motion.div>
-              )}
-
-              {/* Launch Action Bar */}
+              {/* Launch Bar */}
               <div className="surface p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
                     <Play className="w-6 h-6 fill-current" />
                   </div>
                   <div>
-                    <div className="text-white font-black text-lg">Ready to Start</div>
+                    <div className="text-white font-black text-lg">Launch CMS Session</div>
                     <div className="text-xs text-[var(--text-secondary)] font-bold flex items-center gap-2">
-                      <span>{filteredQuestions.length} Questions</span>
+                      <span>{preparedQuizQuestions.length} Active Questions</span>
                       <span>•</span>
                       <span className={`badge ${CATEGORY_BADGE_STYLE[lobbyConfig.category] || "badge-all"}`}>
                         {lobbyConfig.category}
@@ -496,8 +473,8 @@ export default function AppClient() {
 
                 <button
                   onClick={handleStartQuiz}
-                  disabled={filteredQuestions.length === 0}
-                  className="btn btn-gold btn-lg w-full sm:w-auto flex items-center justify-center gap-2"
+                  disabled={preparedQuizQuestions.length === 0}
+                  className="btn btn-gold btn-lg w-full sm:w-auto flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Launch Quiz</span>
                   <Play className="w-5 h-5 fill-current" />
@@ -507,6 +484,12 @@ export default function AppClient() {
           </div>
         </div>
         <Footer />
+
+        <AdminCMSModal
+          isOpen={isAdminOpen}
+          onClose={() => setIsAdminOpen(false)}
+          onConfigChange={reloadCMSData}
+        />
       </div>
     );
   }
@@ -573,7 +556,6 @@ export default function AppClient() {
               animate={{ opacity: 1, scale: 1 }}
               className="w-full max-w-4xl space-y-6"
             >
-              {/* Victory Card */}
               <div className="surface p-8 sm:p-12 text-center space-y-6">
                 <div className="w-16 h-16 mx-auto rounded-3xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-md">
                   <Award className="w-8 h-8" />
@@ -627,29 +609,21 @@ export default function AppClient() {
                 )}
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
-                  {/* Leaderboard currently disabled
-                  {lobbyConfig.mode === "quiz" &&
-                    lobbyConfig.playerName.trim() &&
-                    quizResults &&
-                    quizResults.score > 0 && (
-                      <button onClick={handleSaveScore} className="btn btn-gold btn-lg w-full sm:w-auto">
-                        Save Score to Leaderboard
-                      </button>
-                    )}
-                  */}
-
                   <button onClick={handlePlayAgain} className="btn btn-secondary btn-lg w-full sm:w-auto flex items-center justify-center gap-2">
                     <RotateCcw className="w-5 h-5" /> Start New Session
                   </button>
                 </div>
               </div>
-
-              {/* Leaderboard Table (Disabled) */}
-              {/* <LeaderboardComponent entries={leaderboard} onClear={handleClearLeaderboard} /> */}
             </motion.div>
           </div>
         </div>
         <Footer />
+
+        <AdminCMSModal
+          isOpen={isAdminOpen}
+          onClose={() => setIsAdminOpen(false)}
+          onConfigChange={reloadCMSData}
+        />
       </div>
     );
   }
