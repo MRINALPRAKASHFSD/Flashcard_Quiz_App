@@ -471,13 +471,13 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
         {/* Header Bar */}
         <div className="px-8 py-6 border-b border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gray-50">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-lg bg-black text-white shadow-md">
-              <Database className="w-6 h-6 text-gray-900" />
+            <div className="p-2.5 rounded-lg bg-black text-white shadow-sm">
+              <Database className="w-6 h-6 text-white" />
             </div>
             <div>
               <h2 className="text-xl font-bold tracking-normal text-gray-900 flex items-center gap-2">
                 Quiz Settings & Content
-                <span className="text-sm px-2.5 py-0.5 rounded-full bg-gray-800/10 text-gray-900 font-medium border border-black/20 flex items-center gap-1">
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-gray-200 text-gray-700 font-medium border border-gray-300 flex items-center gap-1">
                   <GitBranch className="w-3.5 h-3.5" /> Cloud Sync Active
                 </span>
               </h2>
@@ -492,7 +492,7 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
             <button
               onClick={handlePushToGitHub}
               disabled={isSyncingGithub}
-              className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-semibold text-sm rounded-lg flex items-center gap-2 transition-all shadow-md cursor-pointer disabled:opacity-50"
+              className="px-5 py-2.5 bg-black hover:bg-gray-800 text-white font-semibold text-sm rounded-lg flex items-center gap-2 transition-all shadow-sm cursor-pointer disabled:opacity-50"
             >
               <RefreshCw className={`w-4 h-4 ${isSyncingGithub ? "animate-spin" : ""}`} />
               {isSyncingGithub ? "Saving to Cloud..." : "Save Changes to Cloud"}
@@ -516,7 +516,7 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
             }}
             className={`px-6 py-4 text-sm font-semibold flex items-center gap-2 border-b-2 transition-all cursor-pointer ${
               activeTab === "rows"
-                ? "border-amber-400 text-gray-900 bg-black/5"
+                ? "border-black text-gray-900 bg-gray-50"
                 : "border-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-50"
             }`}
           >
@@ -531,7 +531,7 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
             }}
             className={`px-6 py-4 text-sm font-semibold flex items-center gap-2 border-b-2 transition-all cursor-pointer ${
               activeTab === "divisions"
-                ? "border-amber-400 text-gray-900 bg-black/5"
+                ? "border-black text-gray-900 bg-gray-50"
                 : "border-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-50"
             }`}
           >
@@ -546,7 +546,7 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
             }}
             className={`px-6 py-4 text-sm font-semibold flex items-center gap-2 border-b-2 transition-all cursor-pointer ${
               activeTab === "randomizer"
-                ? "border-amber-400 text-gray-900 bg-black/5"
+                ? "border-black text-gray-900 bg-gray-50"
                 : "border-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-50"
             }`}
           >
@@ -561,7 +561,7 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
             }}
             className={`px-6 py-4 text-sm font-semibold flex items-center gap-2 border-b-2 transition-all cursor-pointer ${
               activeTab === "datasets"
-                ? "border-amber-400 text-gray-900 bg-black/5"
+                ? "border-black text-gray-900 bg-gray-50"
                 : "border-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-50"
             }`}
           >
@@ -576,7 +576,7 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
             }}
             className={`px-6 py-4 text-sm font-semibold flex items-center gap-2 border-b-2 transition-all cursor-pointer ${
               activeTab === "github"
-                ? "border-amber-400 text-gray-900 bg-black/5"
+                ? "border-black text-gray-900 bg-gray-50"
                 : "border-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-50"
             }`}
           >
@@ -621,14 +621,14 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
                 <div className="flex items-center gap-2 w-full md:w-auto justify-end">
                   <button
                     onClick={() => handleSelectAllFilteredQuestions(true)}
-                    className="px-3 py-1.5 bg-gray-200 hover:bg-slate-600 text-sm font-semibold rounded-lg text-gray-800 transition-all cursor-pointer"
+                    className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 border border-gray-300 text-sm font-semibold rounded-lg text-gray-800 transition-all cursor-pointer"
                   >
                     Select All
                   </button>
 
                   <button
                     onClick={() => handleSelectAllFilteredQuestions(false)}
-                    className="px-3 py-1.5 bg-gray-200 hover:bg-slate-600 text-sm font-semibold rounded-lg text-gray-800 transition-all cursor-pointer"
+                    className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 border border-gray-300 text-sm font-semibold rounded-lg text-gray-800 transition-all cursor-pointer"
                   >
                     Deselect All
                   </button>
@@ -647,7 +647,7 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
                       });
                       setIsEditingQuestion(true);
                     }}
-                    className="px-4 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-sm rounded-lg flex items-center gap-2 transition-all shadow-md shrink-0 cursor-pointer"
+                    className="px-4 py-1.5 bg-black hover:bg-gray-800 text-white font-semibold text-sm rounded-lg flex items-center gap-2 transition-all shadow-sm shrink-0 cursor-pointer"
                   >
                     <Plus className="w-4 h-4" />
                     Add Question Row
@@ -656,10 +656,10 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
               </div>
 
               {/* Data Table */}
-              <div className="bg-white/60 rounded-lg border border-gray-200 overflow-x-auto shadow-inner">
+              <div className="bg-white rounded-lg border border-gray-200 overflow-x-auto shadow-sm">
                 <table className="w-full text-left border-collapse text-sm">
                   <thead>
-                    <tr className="bg-white/90 text-gray-500 font-mono border-b border-gray-200">
+                    <tr className="bg-gray-50 text-gray-600 font-medium border-b border-gray-200">
                       <th className="py-3 px-4 w-10 text-center">Include</th>
                       <th className="py-3 px-3 w-14">ID</th>
                       <th className="py-3 px-4 min-w-[240px]">Question Prompt</th>
@@ -669,7 +669,7 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
                       <th className="py-3 px-4 w-24 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-gray-200">
                     {filteredQuestions.map((q) => {
                       const isSelected =
                         selectedQuestionIds.includes("*") || selectedQuestionIds.includes(q.id);
@@ -677,8 +677,8 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
                       return (
                         <tr
                           key={q.id}
-                          className={`transition-colors hover:bg-white ${
-                            isSelected ? "bg-white text-gray-900" : "opacity-60 bg-white/20"
+                          className={`transition-colors hover:bg-gray-50 ${
+                            isSelected ? "bg-white text-gray-900" : "opacity-50 bg-gray-50/50"
                           }`}
                         >
                           {/* Checkbox Column */}
@@ -701,7 +701,7 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
 
                           {/* Category Badge */}
                           <td className="py-3 px-3">
-                            <span className="px-2 py-0.5 rounded bg-gray-800/20 text-gray-600 font-mono text-[11px] border border-indigo-500/30">
+                            <span className="px-2 py-0.5 rounded bg-gray-100 text-gray-700 font-medium text-xs border border-gray-300">
                               {q.category || q.level}
                             </span>
                           </td>
@@ -712,10 +712,10 @@ export default function AdminCMSModal({ isOpen, onClose, onConfigChange }: Admin
                               {q.options.map((opt, oIdx) => (
                                 <div
                                   key={oIdx}
-                                  className={`px-2 py-1 rounded text-[11px] font-medium border truncate ${
+                                  className={`px-2.5 py-1 rounded text-xs font-medium border truncate ${
                                     oIdx === q.correctAnswer
-                                      ? "bg-gray-800/10 border-black text-emerald-300 font-bold"
-                                      : "bg-white border-gray-200 text-gray-500"
+                                      ? "bg-slate-100 border-slate-400 text-slate-900 font-bold"
+                                      : "bg-white border-gray-200 text-gray-600"
                                   }`}
                                 >
                                   <span className="font-mono opacity-60 mr-1">{String.fromCharCode(65 + oIdx)}.</span>

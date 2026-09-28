@@ -308,14 +308,7 @@ export default function AppClient() {
                 </button>
               </form>
 
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                <button
-                  onClick={handleQuickDemoPin}
-                  className="text-xs font-bold text-[var(--text-secondary)] hover:text-amber-300 transition-colors cursor-pointer"
-                >
-                  Quick Sign-In
-                </button>
-
+              <div className="pt-4 border-t border-white/5 flex items-center justify-end">
                 <button
                   onClick={() => setIsAdminOpen(true)}
                   className="text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 cursor-pointer"
@@ -362,9 +355,9 @@ export default function AppClient() {
                   soundManager.playClick();
                   setIsAdminOpen(true);
                 }}
-                className="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-md"
+                className="px-4 py-2 rounded-xl bg-white hover:bg-gray-100 text-gray-900 font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-md"
               >
-                <Database className="w-4 h-4 text-amber-400" />
+                <Database className="w-4 h-4 text-gray-700" />
                 CMS Admin Panel
               </button>
 
@@ -383,8 +376,8 @@ export default function AppClient() {
               {/* CMS Active Banner */}
               <div className="surface p-8 sm:p-10 bg-gradient-to-r from-[#17152e] via-[#1a1836] to-[#25224e] text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6 relative overflow-hidden border border-amber-500/20">
                 <div className="space-y-2 max-w-lg z-10">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-black uppercase tracking-wider">
-                    <Database className="w-3.5 h-3.5" /> CMS Active Dataset: {activeDataset?.name || "Default Quiz"}
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-800 text-xs font-black uppercase tracking-wider shadow-sm">
+                    <Database className="w-3.5 h-3.5 text-gray-600" /> CMS Active Dataset: {activeDataset?.name || "Default Quiz"}
                   </div>
                   <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white flex items-center gap-2">
                     Ready for a Quiz? <Sparkles className="w-7 h-7 text-amber-400" />
