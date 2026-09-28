@@ -1,0 +1,1541 @@
+{
+  "id": "sanchetna_club_quiz_dataset",
+  "name": "Sanchetna Club Quiz",
+  "description": "100 questions from Know My India Mega Quiz Sets 1 & 2.",
+  "version": "1.0.0",
+  "updatedAt": "2026-09-29T00:00:00.000Z",
+  "divisions": [
+    {
+      "id": "Qualification Round",
+      "title": "Qualification Round",
+      "subtitle": "First 20 Questions",
+      "scoreRule": "+10 points"
+    },
+    {
+      "id": "Additional Round 1",
+      "title": "Additional Round 1",
+      "subtitle": "Extra 20 Questions",
+      "scoreRule": "+10 points"
+    },
+    {
+      "id": "Additional Round 2",
+      "title": "Additional Round 2",
+      "subtitle": "Extra 20 Questions",
+      "scoreRule": "+10 points"
+    },
+    {
+      "id": "Additional Round 3",
+      "title": "Additional Round 3",
+      "subtitle": "Extra 20 Questions",
+      "scoreRule": "+10 points"
+    },
+    {
+      "id": "Final Round",
+      "title": "Final Round",
+      "subtitle": "Last 20 Questions",
+      "scoreRule": "+10 points"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "What is the highest mountain peak located entirely within Indian territory?",
+      "options": [
+        "Kanchenjunga",
+        "Nanda Devi",
+        "Kamet",
+        "Saltoro Kangri"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 2,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "The 'Navratna' and 'Maharatna' status is granted by the Government of India to which category of  enterprises?",
+      "options": [
+        "Private start -ups",
+        "Central Public Sector Enterprises (CPSEs)",
+        "Multi -State Cooperative Societies",
+        "Foreign joint ventures"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 3,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "Which Indian organization is responsible for research and development of weapon systems, military  vehicles, and defense electronics?",
+      "options": [
+        "ISRO",
+        "CSIR",
+        "DRDO",
+        "BARC"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 4,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "The Hornbill Festival, showcasing the rich indigenous cultural traditions of tribal communities, is celebrated  annually in which state?",
+      "options": [
+        "Mizoram",
+        "Nagaland",
+        "Arunachal Pradesh",
+        "Tripura"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 5,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "Which Mauryan Emperor renounced warfare and embraced Buddhism following the devastating Kalinga  War in 261 BCE?",
+      "options": [
+        "Chandragupta Maurya",
+        "Bindusara",
+        "Ashoka the Great",
+        "Dasharatha Maurya"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 6,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "What is the name of India's main battle tank (MBT) designed by the Combat Vehicles Research and  Development Establishment (CVRDE)?",
+      "options": [
+        "T-90 Bhishma",
+        "Arjun MBT",
+        "Vijayanta",
+        "Ajeya"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 7,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "What is the official national micro -organism of India declared in 2012 by the Ministry of Environment?",
+      "options": [
+        "Saccharomyces cerevisiae",
+        "Lactobacillus bulgaricus",
+        "Spirulina",
+        "Rhizobium"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 8,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "Who was the ruler of the Maratha Empire known for pioneering guerrilla warfare tactics (Ganimi Kava)?",
+      "options": [
+        "Chhatrapati Shivaji Maharaj",
+        "Sambhaji Maharaj",
+        "Peshwa Baji Rao I",
+        "Madhavrao Peshwa"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 9,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "Which organization manages the national payments infrastructure including UPI, RuPay, and IMPS in India?",
+      "options": [
+        "Reserve Bank of India directly",
+        "National Payments Corporation of India (NPCI)",
+        "State Bank of India",
+        "NASSCOM"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 10,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "What is the official national aquatic animal of India?",
+      "options": [
+        "Olive Ridley Sea Turtle",
+        "Ganges River Dolphin",
+        "Gharial",
+        "Dugong"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 11,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "Which revolutionary threw a non -lethal bomb inside the Central Legislative Assembly in Delhi in 1929 along  with Bhagat Singh?",
+      "options": [
+        "Sukhdev Thapar",
+        "Batukeshwar Dutt",
+        "Rajguru",
+        "Jatin Das"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 12,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "Who appoints the Comptroller and Auditor General (CAG) of India?",
+      "options": [
+        "Prime Minister",
+        "President of India",
+        "Chief Justice of India",
+        "Parliament"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 13,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "Which ancient Indian Sanskrit text is regarded as the world's earliest comprehensive treatise on performing  arts, dramaturgy, and dance?",
+      "options": [
+        "Natya Shastra",
+        "Kamasutra",
+        "Panchatantra",
+        "Arthashastra"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 14,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "Where is the headquarters of the Indian Space Research Organisation (ISRO) located?",
+      "options": [
+        "Sriharikota",
+        "Thiruvananthapuram",
+        "Bengaluru",
+        "Hyderabad"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 15,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "Who served as the Chairman of the Drafting Committee of the Indian Constitution?",
+      "options": [
+        "Dr. Rajendra Prasad",
+        "Dr. B.R. Ambedkar",
+        "Jawaharlal Nehru",
+        "B.N. Rau"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 16,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "The canal connecting the Mediterranean Sea and the Red Sea drastically reduced travel between Europe  and India. What is it called?",
+      "options": [
+        "Panama Canal",
+        "Suez Canal   Know My India \u2014 Edition II (100 New MCQs)   Page | Know My India Mega Quiz Document (Part 2)",
+        "Kiel Canal",
+        "Corinth Canal"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 17,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "The Chilika Lake, India's largest coastal brackish water lagoon, is situated in which state?",
+      "options": [
+        "Odisha",
+        "Andhra Pradesh",
+        "West Bengal",
+        "Kerala"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 18,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "The Lonar Lake in Buldhana district of Maharashtra is famous because it is a:",
+      "options": [
+        "Glacial tarn",
+        "Meteorite impact crater lake",
+        "Oxbow lake",
+        "Artificial reservoir"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 19,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "What is the base year currently used for calculating India's Index of Industrial Production (IIP) and Consumer  Price Index (CPI)?",
+      "options": [
+        "2004 -05",
+        "2011 -12",
+        "2015 -16",
+        "2017 -18"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 20,
+      "level": "Qualification Round",
+      "category": "Qualification Round",
+      "question": "The ancient rock -cut caves of Ajanta and Ellora, known for Buddhist murals and Kailash temple, are situated  in which district of Maharashtra?",
+      "options": [
+        "Pune",
+        "Chhatrapati Sambhajinagar (Aurangabad)",
+        "Nashik",
+        "Kolhapur"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 21,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "Which Indian state has the longest coastline on the mainland?",
+      "options": [
+        "Andhra Pradesh",
+        "Gujarat",
+        "Tamil Nadu",
+        "Maharashtra"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 22,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "Who presented the landmark Union Budget of 1991 that ushered in economic liberalization, privatization,  and globalization (LPG reforms)?",
+      "options": [
+        "P. Chidambaram",
+        "Dr. Manmohan Singh",
+        "Yashwant Sinha",
+        "Pranab Mukherjee"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 23,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "Where is the Bhabha Atomic Research Centre (BARC) located?",
+      "options": [
+        "Trombay, Mumbai",
+        "Kalpakkam, Chennai",
+        "located?   A) Trombay, Mumbai  B) Kalpakkam, Chennai   C) Rawatbhata, Kota",
+        "Kakrapar, Surat"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 24,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "What is the name of India's first indigenous nuclear -powered ballistic missile submarine commissioned into  the Indian Navy?",
+      "options": [
+        "INS Kalvari",
+        "INS Arihant",
+        "INS Arighat",
+        "INS Chakra"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 25,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "Which is the only active volcano in South Asia, located in Indian territory?",
+      "options": [
+        "Narcondam Island",
+        "Barren Island",
+        "Baratang Island",
+        "Neil Island"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 26,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "In which city is the Vikram Sarabhai Space Centre (VSSC), responsible for rocket vehicle design, located?",
+      "options": [
+        "Thiruvananthapuram",
+        "Bengaluru",
+        ", responsible for rocket vehicle design, located?   A) Thiruvananthapuram  B) Bengaluru   C) Hyderabad",
+        "Chennai"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 27,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "Which line demarcates the border between India and China?",
+      "options": [
+        "Radcliffe Line",
+        "Durand Line",
+        "McMahon Line",
+        "24th Parallel"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 28,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "In which city is the Bombay Stock Exchange (BSE), Asia's oldest stock exchange, located?",
+      "options": [
+        "Kolkata",
+        "New Delhi",
+        "Mumbai",
+        "Ahmedabad"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 29,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "The world -renowned Sun Temple, designed in the shape of a colossal chariot, is located in which town?",
+      "options": [
+        "Puri",
+        "Konark",
+        "Hampi",
+        "Mahabalipuram"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 30,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "Who was the founder of the Maurya Empire in 322 BCE with the guidance of Chanakya (Kautilya)?",
+      "options": [
+        "Ashoka",
+        "Bindusara",
+        "Chandragupta Maurya",
+        "Pushyamitra Shunga"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 31,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "Which is the highest peak in the Western Ghats (and South India)?",
+      "options": [
+        "Doddabetta",
+        "Anamudi",
+        "Mullayanagiri",
+        "Agasthyamalai"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 32,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "The Tropic of Cancer does NOT pass through which of the following states?",
+      "options": [
+        "Rajasthan",
+        "Odisha",
+        "Chhattisgarh",
+        "Tripura"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 33,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "Which musical instrument was legendary maestro Ustad Bismillah Khan renowned for popularizing on the  classical concert stage?",
+      "options": [
+        "Sitar",
+        "Shehnai",
+        "Sarod",
+        "Santoor"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 34,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "What is the name of ISRO's upcoming crewed human spaceflight mission aiming to send Indian astronauts  to low Earth orbit?",
+      "options": [
+        "Mangalyaan -2",
+        "Gaganyaan",
+        "Shukrayaan",
+        "Antarikshveer"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 35,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "Which historic movement was launched following the Rowlatt Act and Jallianwala Bagh massacre in 1920?",
+      "options": [
+        "Swadeshi Movement",
+        "Non -Cooperation Movement",
+        "Civil Disobedience Movement",
+        "Quit India Movement"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 36,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "The Chauri Chaura incident in February 1922 led Mahatma Gandhi to abruptly suspend which movement?",
+      "options": [
+        "Champaran Satyagraha",
+        "Non -Cooperation Movement",
+        "Rowlatt Satyagraha",
+        "Civil Disobedience Movement"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 37,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "What is the primary indicator used by the RBI's Monetary Policy Committee to target retail inflation?",
+      "options": [
+        "Wholesale Price Index (WPI)",
+        "Consumer Price Index - Combined (CPI)",
+        "GDP Deflator",
+        "Index of Industrial Production (IIP)"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 38,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "Which premier institute of technology in India was the first to be established (in 1951)?",
+      "options": [
+        "IIT Bombay",
+        "IIT Delhi",
+        "IIT Kharagpur",
+        "IIT Madras"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 39,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "What is the ancient system of traditional Indian medicine and holistic health called?",
+      "options": [
+        "Unani",
+        "Siddha",
+        "Ayurveda",
+        "Sowa -Rigpa"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 40,
+      "level": "Additional Round 1",
+      "category": "Additional Round 1",
+      "question": "What does 'SENSEX', the benchmark index of the Bombay Stock Exchange, measure?",
+      "options": [
+        "Top 50 companies",
+        "Top 30 well -established and financially sound companies",
+        "Top 100 manufacturing firms",
+        "Top 500 listed companies"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 41,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Which Indian state is bordered by Bangladesh on three sides (north, south, and west)?",
+      "options": [
+        "Mizoram",
+        "Meghalaya",
+        "Tripura",
+        "Assam"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 42,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Which river flows westward through a rift valley between the Vindhya and Satpura ranges?",
+      "options": [
+        "Godavari",
+        "Narmada",
+        "Mahanadi",
+        "Krishna"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 43,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "The famous rock -cut Shore Temple and monolithic Rathas are located at which UNESCO site?",
+      "options": [
+        "Pattadakal",
+        "Mamallapuram (Mahabalipuram)",
+        "Thanjavur",
+        "Elephanta"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 44,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Who was the first Indian (and first non -European) to win the Nobel Prize in Literature in 1913 for 'Gitanjali'?",
+      "options": [
+        "Rabindranath Tagore",
+        "Bankim Chandra Chattopadhyay",
+        "Sarojini Naidu",
+        "Sri Aurobindo"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 45,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Through how many Indian states does the Tropic of Cancer pass?",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 46,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Who was the chief architect and mission director behind the successful testing of the Integrated Guided  Missile Development Program (IGMDP)?",
+      "options": [
+        "Dr. K. Radhakrishnan",
+        "Dr. A.P.J. Abdul Kalam",
+        "Dr. Satish Dhawan",
+        "Dr. G. Madhavan Nair"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 47,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "The concept of 'Directive Principles of State Policy' (Part IV) was borrowed from which country's  constitution?",
+      "options": [
+        "USA",
+        "United Kingdom",
+        "Ireland",
+        "Australia"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 48,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Which Indian city hosts the headquarters of the Reserve Bank of India?",
+      "options": [
+        "New Delhi",
+        "Kolkata",
+        "Mumbai",
+        "Chennai"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 49,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "By which Constitutional Amendment Act was the voting age in India reduced from 21 years to 18 years?",
+      "options": [
+        "42nd Amendment Act, 1976",
+        "44th Amendment Act, 1978",
+        "61st Amendment Act, 1988",
+        "73rd Amendment Act, 1992"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 50,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Which Indian mathematical genius is celebrated on National Mathematics Day on December 22?",
+      "options": [
+        "Aryabhata",
+        "Srinivasa Ramanujan   Know My India \u2014 Edition II (100 New MCQs)   Page | Know My India Mega Quiz Document (Part 2)",
+        "Brahmagupta",
+        "Bhaskara II"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 51,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Which strait separates Tamil Nadu in India from the Mannar district of Sri Lanka?",
+      "options": [
+        "Malacca Strait",
+        "Palk Strait",
+        "Sunda Strait",
+        "Hormuz Strait"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 52,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Who administers the oath of office to the President of India?",
+      "options": [
+        "Prime Minister",
+        "Vice -President",
+        "Chief Justice of India",
+        "Speaker of Lok Sabha"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 53,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "The Sundarbans delta, known for its royal Bengal tigers and mangrove forests, is formed by the confluence  of which rivers?",
+      "options": [
+        "Ganga, Yamuna, and Saraswati",
+        "Ganga, Brahmaputra, and Meghna",
+        "Mahanadi and Godavari",
+        "Krishna and Kaveri"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 54,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Which institution replaced the Planning Commission of India on January 1, 2015?",
+      "options": [
+        "National Statistical Commission",
+        "NITI Aayog",
+        "Finance Commission",
+        "Economic Advisory Council"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 55,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Which Schedule of the Indian Constitution contains provisions regarding the disqualification of members on  grounds of defection (Anti -Defection Law)?",
+      "options": [
+        "Seventh Schedule",
+        "Ninth Schedule",
+        "Tenth Schedule",
+        "Eleventh Schedule"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 56,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Which Article of the Constitution of India provides for the 'Right to Constitutional Remedies'?",
+      "options": [
+        "Article 19",
+        "Article 21",
+        "Article 32",
+        "Article 44"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 57,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Which state is known for the distinctive indigenous tribal wall art called 'Warli Painting'?",
+      "options": [
+        "Gujarat",
+        "Maharashtra",
+        "Rajasthan",
+        "Madhya Pradesh"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 58,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "Jog Falls (Gersoppa Falls), one of the highest plunge waterfalls in India, is located on which river?",
+      "options": [
+        "Sharavathi",
+        "Kaveri",
+        "Netravati",
+        "Tungabhadra"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 59,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "What is the minimum age required to become a member of the Lok Sabha?",
+      "options": [
+        "21 years",
+        "25 years",
+        "30 years",
+        "35 years"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 60,
+      "level": "Additional Round 2",
+      "category": "Additional Round 2",
+      "question": "The Harappan civilization city characterized by unique water harvesting reservoirs and stone architecture  is:",
+      "options": [
+        "Dholavira",
+        "Kalibangan",
+        "Rakhigarhi",
+        "Chanhudaro"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 61,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "National Sports Day in India is celebrated on August 29 to commemorate the birth anniversary of which  legend?",
+      "options": [
+        "Milkha Singh",
+        "Major Dhyan Chand",
+        "C.K. Nayudu",
+        "K.D. Singh Babu"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 62,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "What is the retirement age of a Judge of the Supreme Court of India?",
+      "options": [
+        "60 years",
+        "62 years",
+        "65 years",
+        "70 years"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 63,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "What is the official playing time of the full version of the National Anthem of India ('Jana Gana Mana')?",
+      "options": [
+        "48 seconds",
+        "52 seconds",
+        "60 seconds",
+        "65 seconds"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 64,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "What was the name of the lunar orbiter mission by ISRO that confirmed the presence of water molecules  on the Moon in 2008?",
+      "options": [
+        "Chandrayaan -1",
+        "Chandrayaan -2",
+        "Luna -25",
+        "Aryabhata -2"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 65,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "Who was the first woman President of the Indian National Congress?",
+      "options": [
+        "Sarojini Naidu",
+        "Annie Besant",
+        "Nellie Sengupta",
+        "Aruna Asaf Ali"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 66,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "What is the southernmost point of Indian territory known as?",
+      "options": [
+        "Kanyakumari",
+        "Indira Point",
+        "Kibithu",
+        "Sir Creek"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 67,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "What is the name of India's first satellite, successfully launched into orbit in April 1975?",
+      "options": [
+        "Bhaskara -I",
+        "Aryabhata",
+        "Rohini",
+        "INSAT -1A"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 68,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "India's solar observation mission launched by ISRO in September 2023 to study the Sun from the Sun -Earth  L1 point is named:",
+      "options": [
+        "Surya -1",
+        "Aditya -L1",
+        "Helion -1",
+        "Bhaskara -Sun"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 69,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "Which epic Sanskrit work written by Kalidasa tells the story of King Dushyanta and Shakuntala?",
+      "options": [
+        "Meghaduta",
+        "Abhijnanashakuntalam",
+        "Raghuvamsha",
+        "Kumarasambhava"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 70,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "Which Article of the Indian Constitution guarantees the 'Protection of Life and Personal Liberty'?",
+      "options": [
+        "Article 14",
+        "Article 19",
+        "Article 21",
+        "Article 25"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 71,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "Which award is India's highest annual recognition for sports coaches and trainers?",
+      "options": [
+        "Arjuna Award",
+        "Dronacharya Award",
+        "Dhyan Chand Lifetime Award",
+        "Rashtriya Khel Protsahan Puruskar"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 72,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "Which Indian public sector bank is the largest commercial bank in terms of assets and branch network?",
+      "options": [
+        "Punjab National Bank",
+        "Bank of Baroda",
+        "State Bank of India",
+        "Canara Bank"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 73,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "What is the ratio of the width (height) to the length of the National Flag of India?",
+      "options": [
+        "1:2",
+        "2:3",
+        "3:4",
+        "3:5"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 74,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "Which Constitutional Amendment granted constitutional status and protection to Panchayati Raj  institutions?",
+      "options": [
+        "44th Amendment",
+        "52nd Amendment",
+        "73rd Amendment",
+        "86th Amendment"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 75,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "What is the name of the landing site on the Moon's south polar region where Chandrayaan -3's Vikram  lander touched down in August 2023?",
+      "options": [
+        "Tiranga Point",
+        "Shiv Shakti Point",
+        "Jawahar Point",
+        "Bharat Point"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 76,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "The famous Khajuraho Group of Monuments in Madhya Pradesh was constructed by rulers of which  dynasty?",
+      "options": [
+        "Chandela dynasty",
+        "Paramara dynasty",
+        "Chola dynasty",
+        "Rashtrakuta dynasty"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 77,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "Which of the following bodies is a non -constitutional (statutory) body?",
+      "options": [
+        "Finance Commission",
+        "Election Commission",
+        "National Human Rights Commission (NHRC)",
+        "UPSC"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 78,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "Which revolution in India is associated with the dramatic surge in milk production led by Dr. Verghese  Kurien?",
+      "options": [
+        "Green Revolution",
+        "White Revolution (Operation Flood)",
+        "Yellow Revolution",
+        "Blue Revolution"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 79,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "In which year did the historic Revolt of 1857 (First War of Indian Independence) break out?",
+      "options": [
+        "1848",
+        "1853",
+        "1857",
+        "1885"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 80,
+      "level": "Additional Round 3",
+      "category": "Additional Round 3",
+      "question": "What does 'SEZ' stand for in commercial and industrial development policy?",
+      "options": [
+        "Standard Economic Zone",
+        "Special Economic Zone",
+        "Single Export Zone",
+        "Social Enterprise Zone"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 81,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Which was the first Five -Year Plan model adopted in India (1951 \u20131956)?",
+      "options": [
+        "Mahalanobis Model",
+        "Harrod -Domar Model",
+        "Gadgil Formula",
+        "Rao-Manmohan Model"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 82,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Who was the first Governor -General of independent India (1947 \u20131948)?",
+      "options": [
+        "C. Rajagopalachari",
+        "Lord Mountbatten",
+        "Dr. Rajendra Prasad",
+        "Clement Attlee"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 83,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "What is India's regional satellite navigation system, built and operated by ISRO, popularly called?",
+      "options": [
+        "GAGAN",
+        "NavIC (IRNSS)",
+        "Bhuvan",
+        "Drishti"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 84,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "What is the main purpose of the Unified Payments Interface (UPI) developed by NPCI?",
+      "options": [
+        "Real -time inter -bank mobile fund transfers",
+        "Cross -border container tracking",
+        "High -speed broadband delivery",
+        "Satellite imagery sharing"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 85,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Which river is widely known as the 'Dakshin Ganga' (Ganges of the South)?",
+      "options": [
+        "Krishna",
+        "Godavari",
+        "Kaveri",
+        "Mahanadi"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 86,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Who was the first woman to be awarded the Bharat Ratna, India's highest civilian honor?",
+      "options": [
+        "Mother Teresa",
+        "Indira Gandhi",
+        "Sarojini Naidu",
+        "Lata Mangeshkar"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 87,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Which Indian state is celebrated for the classical dance -drama 'Kathakali', distinguished by elaborate  makeup and costumes?",
+      "options": [
+        "Tamil Nadu",
+        "Kerala",
+        "Karnataka",
+        "Andhra Pradesh"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 88,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "How many members are nominated to the Rajya Sabha by the President of India?",
+      "options": [
+        "2",
+        "10",
+        "12",
+        "14"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    },
+    {
+      "id": 89,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Which Indian city has hosted the Asian Games twice (1951 and 1982)?",
+      "options": [
+        "Mumbai",
+        "New Delhi",
+        "Kolkata",
+        "Chennai"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 90,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Which national park in India is the world's premier refuge for the Great Indian One -horned Rhinoceros?",
+      "options": [
+        "Manas National Park",
+        "Kaziranga National Park",
+        "Jim Corbett National Park",
+        "Gir National Park"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 91,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Which supercomputer developed by CDAC in 1991 was India's first indigenous supercomputer?",
+      "options": [
+        "PARAM 8000",
+        "PARAM Yuva",
+        "Pratyush",
+        "Mihir"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 92,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Which festival celebrated in North India commemorates the victory of Lord Rama over Ravana?",
+      "options": [
+        "Holi",
+        "Dussehra (Vijayadashami)",
+        "Raksha Bandhan",
+        "Makar Sankranti"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 93,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Who was the founder of the Brahmo Samaj in Calcutta in 1828?",
+      "options": [
+        "Swami Vivekananda",
+        "Raja Ram Mohan Roy",
+        "Dayananda Saraswati",
+        "Ishwar Chandra Vidyasagar"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 94,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Who gave the famous slogan 'Give me blood, and I shall give you freedom'?",
+      "options": [
+        "Bhagat Singh",
+        "Subhas Chandra Bose",
+        "Chandrashekhar Azad",
+        "Bal Gangadhar Tilak"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 95,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "The historic Indus Valley Civilization site featuring a sophisticated tidal dockyard is located at:",
+      "options": [
+        "Kalibangan",
+        "Lothal",
+        "Harappa",
+        "Banawali"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 96,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "What is the name of India's supersonic cruise missile developed jointly by India and Russia?",
+      "options": [
+        "Nirbhay",
+        "BrahMos",
+        "Astra",
+        "Nag"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 97,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "What is the primary function of India's indigenous air -defence missile 'Akash'?",
+      "options": [
+        "Anti-tank warfare",
+        "Medium -range surface -to-air missile (SAM)",
+        "Deep -sea submarine tracking",
+        "Air-to-air dogfight only"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 98,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "Which Constitutional Amendment added the words 'Socialist', 'Secular', and 'Integrity' to the Preamble?",
+      "options": [
+        "24th Amendment",
+        "42nd Amendment",
+        "44th Amendment",
+        "52nd Amendment"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct answer is B.",
+      "points": 10
+    },
+    {
+      "id": 99,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "In which battle did Babur defeat Ibrahim Lodi to establish the Mughal dynasty in India in 1526?",
+      "options": [
+        "First Battle of Panipat",
+        "Battle of Khanwa",
+        "Second Battle of Panipat",
+        "Battle of Ghaghra"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The correct answer is A.",
+      "points": 10
+    },
+    {
+      "id": 100,
+      "level": "Final Round",
+      "category": "Final Round",
+      "question": "What is the highest wartime military gallantry decoration in India?",
+      "options": [
+        "Maha Vir Chakra",
+        "Ashoka Chakra",
+        "Param Vir Chakra",
+        "Shaurya Chakra"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct answer is C.",
+      "points": 10
+    }
+  ]
+}
