@@ -177,7 +177,7 @@ export default function AppClient() {
     soundManager.playClick();
     // Load dynamically prepared questions from CMS Local DB
     const prepared = await cmsStorage.getPreparedQuizQuestions();
-    
+
     // Filter by lobby selected category if specific category chosen in lobby
     let finalQuestions = prepared.questions;
     if (lobbyConfig.category !== "All") {
@@ -238,7 +238,7 @@ export default function AppClient() {
                   />
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-black uppercase tracking-wider">
-                  <Sparkles className="w-3.5 h-3.5" /> Deeksharambh Orientation & CMS
+                  <Sparkles className="w-3.5 h-3.5" /> Quiz with CMS
                 </div>
               </div>
 
@@ -308,14 +308,7 @@ export default function AppClient() {
                 </button>
               </form>
 
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                <button
-                  onClick={handleQuickDemoPin}
-                  className="text-xs font-bold text-[var(--text-secondary)] hover:text-amber-300 transition-colors cursor-pointer"
-                >
-                  Quick Sign-In
-                </button>
-
+              <div className="pt-4 border-t border-white/5 flex items-center justify-end">
                 <button
                   onClick={() => setIsAdminOpen(true)}
                   className="text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 cursor-pointer"
@@ -429,11 +422,10 @@ export default function AppClient() {
                       className={`
                       flex flex-col items-center justify-center p-4 rounded-2xl font-black text-xs
                       border-2 transition-all duration-200 cursor-pointer text-center gap-2
-                      ${
-                        lobbyConfig.category === cat
+                      ${lobbyConfig.category === cat
                           ? "border-[var(--eozka-gold)] bg-amber-500/10 text-white shadow-md scale-[1.03]"
                           : "border-white/10 bg-white/2 text-[var(--text-secondary)] hover:border-white/20 hover:text-white"
-                      }
+                        }
                     `}
                     >
                       <div className={`p-2.5 rounded-xl ${lobbyConfig.category === cat ? "bg-amber-400 text-slate-950" : "bg-white/10 text-white"}`}>

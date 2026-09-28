@@ -9,8 +9,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "The KRMU Fresher Quiz by eOzka",
-  description: "Official interactive orientation quiz presenter powered by eOzka",
+  title: "Quiz By eOzka",
+  description: "Official interactive quiz presenter powered by eOzka",
   icons: {
     icon: "/eozka-monogram.svg",
     shortcut: "/eozka-monogram.svg",
