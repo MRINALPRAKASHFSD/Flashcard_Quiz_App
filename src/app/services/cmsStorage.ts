@@ -57,9 +57,12 @@ class CMSStorageService {
   private async seedInitialDatasets() {
     try {
       const datasets = await this.getDatasets();
-      if (datasets.length === 0) {
-        let defaultData: Dataset | null = null;
+      const existingIds = datasets.map(d => d.id);
+      
+      let needsDefault = !existingIds.includes("default_quiz_dataset");
+      let needsSanchetna = !existingIds.includes("sanchetna_club_quiz_dataset");
 
+      if (needsDefault || needsSanchetna) {
         // Try GitHub sync API first
         try {
           const ghRes = await fetch("/api/github/sync");
@@ -67,27 +70,43 @@ class CMSStorageService {
             const data = await ghRes.json();
             if (data.datasets && data.datasets.length > 0) {
               for (const ds of data.datasets) {
-                await this.saveDataset(ds, false);
+                if (!existingIds.includes(ds.id)) {
+                  await this.saveDataset(ds, false);
+                  existingIds.push(ds.id);
+                }
               }
-              return;
+              needsDefault = !existingIds.includes("default_quiz_dataset");
+              needsSanchetna = !existingIds.includes("sanchetna_club_quiz_dataset");
             }
           }
         } catch {
           // Ignore
         }
 
-        // Static fallback
-        try {
-          const res = await fetch("/assets/dataset/default_quiz_dataset.json");
-          if (res.ok) {
-            defaultData = await res.json();
+        // Static fallback for Default Quiz
+        if (needsDefault) {
+          try {
+            const res = await fetch("/assets/dataset/default_quiz_dataset.json");
+            if (res.ok) {
+              const defaultData = await res.json();
+              await this.saveDataset(defaultData, false);
+            }
+          } catch {
+            // Ignore
           }
-        } catch {
-          // Ignore
         }
 
-        if (defaultData) {
-          await this.saveDataset(defaultData, false);
+        // Static fallback for Sanchetna Quiz
+        if (needsSanchetna) {
+          try {
+            const res = await fetch("/assets/dataset/sanchetna_club_quiz.json");
+            if (res.ok) {
+              const sanchetnaData = await res.json();
+              await this.saveDataset(sanchetnaData, false);
+            }
+          } catch {
+            // Ignore
+          }
         }
       }
     } catch (e) {
